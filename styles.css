@@ -1,0 +1,696 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+body {
+    min-height: 100vh;
+
+    font-family: Arial, sans-serif;
+
+    background: #0f1115;
+
+    color: white;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.match-clock {
+    width: min(1000px, 95vw);
+
+    padding: 40px;
+}
+
+
+/* =========================
+   HEADER
+   ========================= */
+
+.match-header {
+    text-align: center;
+
+    margin-bottom: 40px;
+}
+
+
+.match-header h1 {
+    font-size: 32px;
+
+    letter-spacing: 3px;
+}
+
+
+/* =========================
+   MATCH SETUP
+   ========================= */
+
+.match-setup {
+    max-width: 600px;
+
+    margin: 0 auto;
+
+    padding: 35px;
+
+    background: #191c23;
+
+    border: 1px solid #2a2f39;
+
+    border-radius: 16px;
+}
+
+
+.match-setup h2 {
+    text-align: center;
+
+    margin-bottom: 30px;
+
+    font-size: 24px;
+}
+
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+
+.form-group label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    font-size: 14px;
+
+    letter-spacing: 1px;
+
+    color: #aeb4bf;
+}
+
+
+.form-group input,
+.form-group select {
+    width: 100%;
+
+    padding: 14px 16px;
+
+    background: #0f1115;
+
+    color: white;
+
+    border: 1px solid #343a46;
+
+    border-radius: 8px;
+
+    font-size: 16px;
+
+    outline: none;
+}
+
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: #3b82f6;
+}
+
+
+#setup-match-button {
+    width: 100%;
+
+    margin-top: 10px;
+
+    padding: 16px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: #3b82f6;
+
+    color: white;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    letter-spacing: 1px;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+
+#setup-match-button:hover {
+    background: #2563eb;
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================
+   MATCH SCREEN
+   ========================= */
+
+.match-screen {
+    display: none;
+}
+
+
+/* =========================
+   LAG SELECTION
+   ========================= */
+
+.lag-selection {
+    max-width: 700px;
+
+    margin: 0 auto 45px;
+
+    padding: 30px;
+
+    background: #191c23;
+
+    border: 1px solid #2a2f39;
+
+    border-radius: 16px;
+
+    text-align: center;
+}
+
+
+.lag-selection h2 {
+    margin-bottom: 25px;
+
+    font-size: 24px;
+
+    letter-spacing: 1px;
+}
+
+
+.lag-buttons {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 15px;
+
+    margin-bottom: 25px;
+}
+
+
+.lag-button {
+    padding: 18px;
+
+    border: 2px solid #343a46;
+
+    border-radius: 10px;
+
+    background: #0f1115;
+
+    color: white;
+
+    font-size: 17px;
+
+    font-weight: bold;
+
+    letter-spacing: 1px;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+
+.lag-button:hover:not(:disabled) {
+    background: #20252e;
+
+    border-color: #3b82f6;
+
+    transform: translateY(-1px);
+}
+
+
+.lag-button:disabled {
+    opacity: 0.4;
+
+    cursor: not-allowed;
+}
+
+
+/* =========================
+   START MATCH BUTTON
+   ========================= */
+
+#start-match-button {
+    width: 100%;
+
+    padding: 18px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: #22c55e;
+
+    color: white;
+
+    font-size: 18px;
+
+    font-weight: bold;
+
+    letter-spacing: 2px;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+
+#start-match-button:hover:not(:disabled) {
+    background: #16a34a;
+
+    transform: translateY(-1px);
+}
+
+
+#start-match-button:disabled {
+    background: #555b66;
+
+    color: #9da3ad;
+
+    cursor: not-allowed;
+}
+
+
+/* =========================
+   MATCH TIMER
+   ========================= */
+
+.match-timer {
+    text-align: center;
+
+    margin-bottom: 50px;
+}
+
+
+.label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    font-size: 14px;
+
+    letter-spacing: 3px;
+
+    color: #8f96a3;
+}
+
+
+#match-timer {
+    font-size: 64px;
+
+    font-weight: bold;
+}
+
+
+/* =========================
+   PLAYERS
+   ========================= */
+
+.players {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 30px;
+
+    margin-bottom: 50px;
+}
+
+
+.player {
+    min-height: 300px;
+
+    padding: 30px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    background: #191c23;
+
+    border-radius: 16px;
+
+    text-align: center;
+}
+
+
+.player-one {
+    border: 2px solid #3b82f6;
+}
+
+
+.player-two {
+    border: 2px solid #ef4444;
+}
+
+
+.player h2 {
+    width: 100%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    margin-bottom: 20px;
+
+    font-size: 28px;
+}
+
+
+/* =========================
+   CURRENT PLAYER DOT
+   ========================= */
+
+#player-one-indicator,
+#player-two-indicator {
+    width: 14px;
+
+    height: 14px;
+
+    display: none;
+
+    flex-shrink: 0;
+
+    background: white;
+
+    border-radius: 50%;
+
+    box-shadow:
+        0 0 8px rgba(255, 255, 255, 0.6);
+}
+
+
+/* =========================
+   SCORE
+   ========================= */
+
+#player-one-score,
+#player-two-score {
+    display: block;
+
+    margin-bottom: 20px;
+
+    font-size: 80px;
+
+    line-height: 1;
+
+    font-weight: bold;
+}
+
+
+/* =========================
+   SCORE BUTTONS
+   ========================= */
+
+.score-buttons {
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin-top: auto;
+}
+
+
+.score-buttons button {
+    width: 55px;
+
+    height: 45px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border: 1px solid #343a46;
+
+    border-radius: 8px;
+
+    background: #0f1115;
+
+    color: white;
+
+    font-size: 24px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        transform 0.1s ease,
+        opacity 0.2s ease;
+}
+
+
+.score-buttons button:hover:not(:disabled) {
+    background: #343a46;
+}
+
+
+.score-buttons button:active:not(:disabled) {
+    transform: scale(0.95);
+}
+
+
+.score-buttons button:disabled {
+    opacity: 0.35;
+
+    cursor: not-allowed;
+}
+
+
+/* =========================
+   SHOT CLOCK
+   ========================= */
+
+.shot-clock {
+    text-align: center;
+
+    margin-bottom: 30px;
+}
+
+
+#shot-timer {
+    display: block;
+
+    font-size: 100px;
+
+    font-weight: bold;
+}
+
+
+/* =========================
+   TURN CONTROLS
+   ========================= */
+
+.turn-controls {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 15px;
+}
+
+
+#shot-button,
+#change-turn-button {
+    width: 100%;
+
+    padding: 20px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    color: white;
+
+    font-size: 18px;
+
+    font-weight: bold;
+
+    letter-spacing: 1px;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+
+/* Shot button */
+
+#shot-button {
+    background: #22c55e;
+}
+
+
+#shot-button:hover:not(:disabled) {
+    background: #16a34a;
+
+    transform: translateY(-1px);
+}
+
+
+/* Change turn button */
+
+#change-turn-button {
+    background: #3b82f6;
+}
+
+
+#change-turn-button:hover:not(:disabled) {
+    background: #2563eb;
+
+    transform: translateY(-1px);
+}
+
+
+/* Disabled controls */
+
+#shot-button:disabled,
+#change-turn-button:disabled {
+    background: #555b66;
+
+    color: #9da3ad;
+
+    cursor: not-allowed;
+
+    transform: none;
+}
+
+
+/* =========================
+   MOBILE
+   ========================= */
+
+@media (max-width: 600px) {
+
+    .match-clock {
+        width: 100%;
+
+        padding: 20px;
+    }
+
+
+    .match-header {
+        margin-bottom: 25px;
+    }
+
+
+    .match-header h1 {
+        font-size: 24px;
+    }
+
+
+    .match-setup {
+        padding: 25px;
+    }
+
+
+    .lag-selection {
+        padding: 25px 20px;
+
+        margin-bottom: 30px;
+    }
+
+
+    .lag-selection h2 {
+        font-size: 21px;
+    }
+
+
+    .lag-buttons {
+        grid-template-columns: 1fr;
+    }
+
+
+    .lag-button {
+        width: 100%;
+    }
+
+
+    .players {
+        gap: 10px;
+
+        margin-bottom: 35px;
+    }
+
+
+    .player {
+        min-height: 240px;
+
+        padding: 20px 10px;
+    }
+
+
+    .player h2 {
+        font-size: 20px;
+    }
+
+
+    #player-one-score,
+    #player-two-score {
+        font-size: 55px;
+    }
+
+
+    .score-buttons {
+        gap: 8px;
+    }
+
+
+    .score-buttons button {
+        width: 45px;
+
+        height: 40px;
+
+        font-size: 20px;
+    }
+
+
+    #match-timer {
+        font-size: 48px;
+    }
+
+
+    #shot-timer {
+        font-size: 75px;
+    }
+
+
+    .turn-controls {
+        grid-template-columns: 1fr;
+    }
+
+
+    #shot-button,
+    #change-turn-button {
+        padding: 17px;
+
+        font-size: 17px;
+    }
+}
