@@ -285,6 +285,7 @@ function switchPlayer() {
 
 
     updateCurrentPlayerUI(currentPlayer);
+    resetShotClock();
 }
 
 
