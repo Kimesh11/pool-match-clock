@@ -9,41 +9,62 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 
-<body>
+<body id="app-body">
+
+    <!-- Neon Background -->
+    <div class="neon-background">
+        <span class="neon-wave wave-blue"></span>
+        <span class="neon-wave wave-purple"></span>
+        <span class="neon-wave wave-green"></span>
+        <span class="neon-wave wave-cyan"></span>
+    </div>
+
 
     <main class="match-clock">
 
+        <!-- Header -->
         <header class="match-header">
             <h1>POOL MATCH CLOCK</h1>
         </header>
 
-        <!-- Match Setup -->
+
+        <!-- =====================================================
+             MATCH SETUP
+             ===================================================== -->
+
         <section class="match-setup" id="match-setup">
 
             <h2>Match Setup</h2>
 
             <div class="form-group">
                 <label for="player-one-input">Player 1</label>
+
                 <input
                     type="text"
                     id="player-one-input"
                     placeholder="Enter player name"
                     maxlength="30"
+                    required="required"
                 >
             </div>
 
+
             <div class="form-group">
                 <label for="player-two-input">Player 2</label>
+
                 <input
                     type="text"
                     id="player-two-input"
                     placeholder="Enter player name"
                     maxlength="30"
+                    required="required"
                 >
             </div>
 
+
             <div class="form-group">
                 <label for="match-duration">Match Duration</label>
+
                 <select id="match-duration">
                     <option value="1800">30 minutes</option>
                     <option value="2700">45 minutes</option>
@@ -51,10 +72,13 @@
                     <option value="5400">1 hour 30 minutes</option>
                     <option value="7200">2 hours</option>
                 </select>
+                
             </div>
 
+
             <div class="form-group">
-                <label for="shot-clock-label">Shot Clock</label>
+                <label for="shot-clock-duration">Shot Clock</label>
+
                 <select id="shot-clock-duration">
                     <option value="15">15 seconds</option>
                     <option value="30">30 seconds</option>
@@ -63,6 +87,7 @@
                 </select>
             </div>
 
+
             <button id="setup-match-button" type="button">
                 CONTINUE
             </button>
@@ -70,87 +95,260 @@
         </section>
 
 
-        <!-- Match Screen -->
+        <!-- =====================================================
+             MATCH SCREEN
+             ===================================================== -->
+
         <section class="match-screen" id="match-screen">
+
+
+            <!-- =================================================
+                 LAG
+                 ================================================= -->
 
             <section class="lag-selection" id="lag-selection">
 
-            <h2>Lag Winner?</h2>
+                <h2>Lag Winner?</h2>
 
-            <div class="lag-buttons">
-                <button class="lag-button" id="player-one-lag" type="button">
-                    PLAYER 1
-                </button>
+                <div class="lag-buttons">
 
-                <button class="lag-button" id="player-two-lag" type="button">
-                    PLAYER 2
-                </button>
-            </div>
+                    <button
+                        class="lag-button"
+                        id="player-one-lag"
+                        type="button"
+                    >
+                        PLAYER 1
+                    </button>
 
-            <button id="start-match-button" type="button" disabled>
+                    <button
+                        class="lag-button"
+                        id="player-two-lag"
+                        type="button"
+                    >
+                        PLAYER 2
+                    </button>
+
+                </div>
+
+
+                <button
+                    id="start-match-button"
+                    type="button"
+                    disabled
+                >
                     START MATCH
-            </button>
+                </button>
 
-        </section>
-
-            <section class="match-timer">
-                <span class="label">MATCH</span>
-                <span id="match-timer">30:00</span>
             </section>
 
 
+            <!-- =================================================
+                 BALL SET SELECTION
+                 ================================================= -->
+
+            <section
+                class="ball-set-selection"
+                id="ball-set-selection"
+            >
+
+                <h3>PLAYER BALL SET</h3>
+
+                <div class="ball-set-buttons">
+
+                    <button
+                        id="red-ball-button"
+                        type="button"
+                        disabled
+                    >
+                        🔴 RED
+                    </button>
+
+                    <button
+                        id="yellow-ball-button"
+                        type="button"
+                        disabled
+                    >
+                        🟡 YELLOW
+                    </button>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 MATCH TIMER
+                 ================================================= -->
+
+            <section class="match-timer">
+
+                <span class="label">MATCH</span>
+
+                <span id="match-timer">
+                    30:00
+                </span>
+
+            </section>
+
+
+            <!-- =================================================
+                 PLAYERS
+                 ================================================= -->
+
             <section class="players">
+
+
+                <!-- PLAYER ONE -->
 
                 <div class="player player-one">
 
                     <h2>
+
                         <span id="player-one-indicator"></span>
-                        <span id="player-one-name">Player 1</span>
+
+                        <span id="player-one-name">
+                            Player 1
+                        </span>
+
                     </h2>
 
-                    <span id="player-one-score">0</span>
-                    
-                    <div class="score-buttons">
-                        <button id="player-one-minus" type="button" disabled>-</button>
-                        <button id="player-one-plus" type="button" disabled>+</button>
+
+                    <div class="ball-set">
+
+                        <span
+                            id="player-one-ball-indicator"
+                        ></span>
+
+                        <span id="player-one-ball-set">
+                            Ball set not selected
+                        </span>
+
                     </div>
+
+
+                    <span id="player-one-score">
+                        0
+                    </span>
+
+
+                    <div class="score-buttons">
+
+                        <button
+                            id="player-one-minus"
+                            type="button"
+                            disabled
+                        >
+                            -
+                        </button>
+
+                        <button
+                            id="player-one-plus"
+                            type="button"
+                            disabled
+                        >
+                            +
+                        </button>
+
+                    </div>
+
                 </div>
 
+
+                <!-- PLAYER TWO -->
 
                 <div class="player player-two">
 
                     <h2>
+
                         <span id="player-two-indicator"></span>
-                        <span id="player-two-name">Player 2</span>
+
+                        <span id="player-two-name">
+                            Player 2
+                        </span>
+
                     </h2>
 
-                    <span id="player-two-score">0</span>
-                    
-                    <div class="score-buttons">
-                        <button id="player-two-minus" type="button" disabled>-</button>
-                        <button id="player-two-plus" type="button" disabled>+</button>
+
+                    <div class="ball-set">
+
+                        <span
+                            id="player-two-ball-indicator"
+                        ></span>
+
+                        <span id="player-two-ball-set">
+                            Ball set not selected
+                        </span>
+
                     </div>
+
+
+                    <span id="player-two-score">
+                        0
+                    </span>
+
+
+                    <div class="score-buttons">
+
+                        <button
+                            id="player-two-minus"
+                            type="button"
+                            disabled
+                        >
+                            -
+                        </button>
+
+                        <button
+                            id="player-two-plus"
+                            type="button"
+                            disabled
+                        >
+                            +
+                        </button>
+
+                    </div>
+
                 </div>
 
             </section>
 
 
+            <!-- =================================================
+                 SHOT CLOCK
+                 ================================================= -->
+
             <section class="shot-clock">
 
-                <span class="label">SHOT CLOCK</span>
+                <span class="label">
+                    SHOT CLOCK
+                </span>
 
-                <span id="shot-timer">30</span>
+                <span id="shot-timer">
+                    30
+                </span>
 
             </section>
 
 
+            <!-- =================================================
+                 TURN CONTROLS
+                 ================================================= -->
+
             <div class="turn-controls">
 
-                <button id="shot-button" type="button">
+                <button
+                    id="shot-button"
+                    type="button"
+                    disabled
+                >
                     SHOT TAKEN
                 </button>
 
-                <button id="change-turn-button" type="button">
+
+                <button
+                    id="change-turn-button"
+                    type="button"
+                    disabled
+                >
                     END TURN
                 </button>
 
@@ -159,6 +357,7 @@
         </section>
 
     </main>
+
 
     <script src="app.js"></script>
 
