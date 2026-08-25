@@ -5,31 +5,151 @@
 }
 
 
+/* =========================================================
+   BODY
+   ========================================================= */
+
 body {
     min-height: 100vh;
 
     font-family: Arial, sans-serif;
-
-    background: #0f1115;
 
     color: white;
 
     display: flex;
     justify-content: center;
     align-items: center;
+
+    position: relative;
+
+    overflow-x: hidden;
+
+    background:
+        radial-gradient(
+            circle at 50% 30%,
+            #121c2d 0%,
+            #090e17 42%,
+            #030509 100%
+        );
+}
+
+body.match-active {
+    background:
+        linear-gradient(
+            rgba(3, 5, 9, 0.45),
+            rgba(3, 5, 9, 0.65)
+        ),
+        url("bronx_2.jpg");
+
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    background-color: #030509;
+}
+
+body.match-active .neon-background {
+    display: none;
 }
 
 
+/* =========================================================
+   NEON BACKGROUND
+   ========================================================= */
+
+.neon-background {
+    position: fixed;
+
+    inset: 0;
+
+    overflow: hidden;
+
+    pointer-events: none;
+
+    z-index: 0;
+}
+
+.neon-wave {
+    position: absolute;
+
+    width: 140%;
+
+    height: 190px;
+
+    left: -20%;
+
+    border-radius: 50%;
+
+    transform: rotate(-8deg);
+
+    filter: blur(1px);
+
+    opacity: 0.75;
+}
+
+
+.wave-blue {
+    top: 5%;
+
+    border-top: 3px solid #3b82f6;
+
+    box-shadow:
+        0 -8px 25px rgba(59, 130, 246, 0.65),
+        0 -20px 70px rgba(59, 130, 246, 0.25);
+}
+
+
+.wave-purple {
+    top: 28%;
+
+    border-top: 3px solid #a855f7;
+
+    box-shadow:
+        0 -8px 25px rgba(168, 85, 247, 0.6),
+        0 -20px 70px rgba(168, 85, 247, 0.22);
+}
+
+
+.wave-green {
+    top: 58%;
+
+    border-top: 3px solid #22c55e;
+
+    box-shadow:
+        0 -8px 25px rgba(34, 197, 94, 0.6),
+        0 -20px 70px rgba(34, 197, 94, 0.22);
+}
+
+
+.wave-cyan {
+    top: 82%;
+
+    border-top: 3px solid #06b6d4;
+
+    box-shadow:
+        0 -8px 25px rgba(6, 182, 212, 0.55),
+        0 -20px 70px rgba(6, 182, 212, 0.18);
+}
+
+
+/* =========================================================
+   MAIN CONTAINER
+   ========================================================= */
+
 .match-clock {
-    width: min(1000px, 95vw);
+    position: relative;
+
+    z-index: 1;
+
+    width: min(1050px, 95vw);
 
     padding: 40px;
 }
 
 
-/* =========================
+/* =========================================================
    HEADER
-   ========================= */
+   ========================================================= */
 
 .match-header {
     text-align: center;
@@ -37,151 +157,205 @@ body {
     margin-bottom: 40px;
 }
 
-
 .match-header h1 {
     font-size: 32px;
 
-    letter-spacing: 3px;
+    letter-spacing: 4px;
+
+    font-weight: 800;
+
+    text-shadow:
+        0 4px 20px rgba(0, 0, 0, 0.6);
 }
 
 
-/* =========================
+/* =========================================================
+   SHARED PANELS
+   ========================================================= */
+
+.match-setup,
+.lag-selection,
+.ball-set-selection {
+    background:
+        linear-gradient(
+            145deg,
+            rgba(31, 38, 51, 0.96),
+            rgba(10, 14, 21, 0.96)
+        );
+
+    border: 1px solid rgba(255, 255, 255, 0.08);
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 25px 60px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+
+/* =========================================================
    MATCH SETUP
-   ========================= */
+   ========================================================= */
 
 .match-setup {
     max-width: 600px;
 
     margin: 0 auto;
 
-    padding: 35px;
-
-    background: #191c23;
-
-    border: 1px solid #2a2f39;
-
-    border-radius: 16px;
+    padding: 38px;
 }
-
 
 .match-setup h2 {
     text-align: center;
 
-    margin-bottom: 30px;
+    margin-bottom: 32px;
 
-    font-size: 24px;
+    font-size: 25px;
+
+    letter-spacing: 1px;
 }
 
+
+/* =========================================================
+   FORM
+   ========================================================= */
 
 .form-group {
-    margin-bottom: 20px;
+    margin-bottom: 21px;
 }
-
 
 .form-group label {
     display: block;
 
     margin-bottom: 8px;
 
-    font-size: 14px;
+    color: #9da7b7;
 
-    letter-spacing: 1px;
+    font-size: 13px;
 
-    color: #aeb4bf;
+    font-weight: bold;
+
+    letter-spacing: 1.5px;
+
+    text-transform: uppercase;
 }
-
 
 .form-group input,
 .form-group select {
     width: 100%;
 
-    padding: 14px 16px;
+    padding: 15px 16px;
 
-    background: #0f1115;
+    background:
+        linear-gradient(
+            145deg,
+            #090d13,
+            #11161f
+        );
 
     color: white;
 
-    border: 1px solid #343a46;
+    border: 1px solid #303846;
 
-    border-radius: 8px;
+    border-radius: 11px;
 
     font-size: 16px;
 
     outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
 }
 
+.form-group input::placeholder {
+    color: #5f6876;
+}
 
 .form-group input:focus,
 .form-group select:focus {
     border-color: #3b82f6;
+
+    box-shadow:
+        0 0 0 3px rgba(59, 130, 246, 0.12);
+
+    transform: translateY(-1px);
 }
 
+
+/* =========================================================
+   SETUP BUTTON
+   ========================================================= */
 
 #setup-match-button {
     width: 100%;
 
     margin-top: 10px;
 
-    padding: 16px;
+    padding: 17px;
 
     border: none;
 
-    border-radius: 10px;
+    border-radius: 11px;
 
-    background: #3b82f6;
+    background:
+        linear-gradient(
+            135deg,
+            #3b82f6,
+            #2563eb
+        );
 
     color: white;
 
     font-size: 16px;
 
-    font-weight: bold;
+    font-weight: 800;
 
-    letter-spacing: 1px;
+    letter-spacing: 1.5px;
 
     cursor: pointer;
 
-    transition: 0.2s ease;
-}
+    box-shadow:
+        0 8px 25px rgba(37, 99, 235, 0.25);
 
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
 
 #setup-match-button:hover {
-    background: #2563eb;
+    transform: translateY(-2px);
 
-    transform: translateY(-1px);
+    box-shadow:
+        0 12px 30px rgba(37, 99, 235, 0.35);
 }
 
 
-/* =========================
+/* =========================================================
    MATCH SCREEN
-   ========================= */
+   ========================================================= */
 
 .match-screen {
     display: none;
 }
 
 
-/* =========================
+/* =========================================================
    LAG SELECTION
-   ========================= */
+   ========================================================= */
 
 .lag-selection {
-    max-width: 700px;
+    max-width: 720px;
 
-    margin: 0 auto 45px;
+    margin: 0 auto 25px;
 
     padding: 30px;
-
-    background: #191c23;
-
-    border: 1px solid #2a2f39;
-
-    border-radius: 16px;
-
-    text-align: center;
 }
 
-
 .lag-selection h2 {
+    text-align: center;
+
     margin-bottom: 25px;
 
     font-size: 24px;
@@ -189,6 +363,10 @@ body {
     letter-spacing: 1px;
 }
 
+
+/* =========================================================
+   LAG BUTTONS
+   ========================================================= */
 
 .lag-buttons {
     display: grid;
@@ -197,22 +375,26 @@ body {
 
     gap: 15px;
 
-    margin-bottom: 25px;
+    margin-bottom: 22px;
 }
 
-
 .lag-button {
-    padding: 18px;
+    padding: 17px;
 
-    border: 2px solid #343a46;
+    border: 1px solid #343d4c;
 
-    border-radius: 10px;
+    border-radius: 11px;
 
-    background: #0f1115;
+    background:
+        linear-gradient(
+            145deg,
+            #171d27,
+            #0d1118
+        );
 
     color: white;
 
-    font-size: 17px;
+    font-size: 16px;
 
     font-weight: bold;
 
@@ -220,29 +402,35 @@ body {
 
     cursor: pointer;
 
-    transition: 0.2s ease;
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease,
+        background 0.2s ease;
 }
 
-
 .lag-button:hover:not(:disabled) {
-    background: #20252e;
+    transform: translateY(-2px);
 
     border-color: #3b82f6;
 
-    transform: translateY(-1px);
+    background:
+        linear-gradient(
+            145deg,
+            #202938,
+            #10151d
+        );
 }
 
-
 .lag-button:disabled {
-    opacity: 0.4;
+    opacity: 0.35;
 
     cursor: not-allowed;
 }
 
 
-/* =========================
-   START MATCH BUTTON
-   ========================= */
+/* =========================================================
+   START MATCH
+   ========================================================= */
 
 #start-match-button {
     width: 100%;
@@ -251,88 +439,237 @@ body {
 
     border: none;
 
-    border-radius: 10px;
+    border-radius: 11px;
 
-    background: #22c55e;
+    background:
+        linear-gradient(
+            135deg,
+            #22c55e,
+            #16a34a
+        );
 
     color: white;
 
     font-size: 18px;
 
-    font-weight: bold;
+    font-weight: 800;
 
     letter-spacing: 2px;
 
     cursor: pointer;
 
-    transition: 0.2s ease;
-}
+    box-shadow:
+        0 8px 25px rgba(34, 197, 94, 0.2);
 
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
 
 #start-match-button:hover:not(:disabled) {
-    background: #16a34a;
+    transform: translateY(-2px);
 
-    transform: translateY(-1px);
+    box-shadow:
+        0 12px 30px rgba(34, 197, 94, 0.3);
 }
 
-
 #start-match-button:disabled {
-    background: #555b66;
+    background: #343a46;
 
-    color: #9da3ad;
+    color: #737b87;
+
+    box-shadow: none;
 
     cursor: not-allowed;
 }
 
 
-/* =========================
+/* =========================================================
+   BALL SET SELECTION
+   ========================================================= */
+
+.ball-set-selection {
+    max-width: 720px;
+
+    margin: 0 auto 45px;
+
+    padding: 25px;
+
+    text-align: center;
+}
+
+.ball-set-selection h3 {
+    margin-bottom: 20px;
+
+    color: #d9dee7;
+
+    font-size: 17px;
+
+    letter-spacing: 1.5px;
+}
+
+.ball-set-buttons {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 15px;
+}
+
+.ball-set-buttons button {
+    padding: 16px;
+
+    border-radius: 11px;
+
+    font-size: 16px;
+
+    font-weight: 800;
+
+    letter-spacing: 1px;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        filter 0.2s ease;
+}
+
+
+/* RED */
+
+#red-ball-button {
+    border: 1px solid #ef4444;
+
+    background:
+        linear-gradient(
+            135deg,
+            #dc2626,
+            #991b1b
+        );
+
+    color: white;
+
+    box-shadow:
+        0 8px 25px rgba(239, 68, 68, 0.18);
+}
+
+#red-ball-button:hover {
+    transform: translateY(-2px);
+
+    filter: brightness(1.12);
+
+    box-shadow:
+        0 12px 30px rgba(239, 68, 68, 0.3);
+}
+
+
+/* YELLOW */
+
+#yellow-ball-button {
+    border: 1px solid #eab308;
+
+    background:
+        linear-gradient(
+            135deg,
+            #facc15,
+            #ca8a04
+        );
+
+    color: #111827;
+
+    box-shadow:
+        0 8px 25px rgba(234, 179, 8, 0.18);
+}
+
+#yellow-ball-button:hover {
+    transform: translateY(-2px);
+
+    filter: brightness(1.08);
+
+    box-shadow:
+        0 12px 30px rgba(234, 179, 8, 0.3);
+}
+
+.ball-set-buttons button:disabled {
+    background: #343a46 !important;
+    border-color: #4b5563 !important;
+    color: #737b87 !important;
+
+    opacity: 0.5;
+
+    cursor: not-allowed;
+
+    box-shadow: none;
+
+    transform: none;
+}
+
+.ball-set-buttons button:disabled:hover {
+    background: #343a46 !important;
+    border-color: #4b5563 !important;
+
+    filter: none;
+
+    box-shadow: none;
+
+    transform: none;
+}
+
+/* =========================================================
    MATCH TIMER
-   ========================= */
+   ========================================================= */
 
 .match-timer {
     text-align: center;
 
-    margin-bottom: 50px;
+    margin-bottom: 45px;
 }
-
 
 .label {
     display: block;
 
-    margin-bottom: 8px;
+    margin-bottom: 7px;
 
-    font-size: 14px;
+    color: #6f7a8b;
 
-    letter-spacing: 3px;
-
-    color: #8f96a3;
-}
-
-
-#match-timer {
-    font-size: 64px;
+    font-size: 12px;
 
     font-weight: bold;
+
+    letter-spacing: 4px;
+}
+
+#match-timer {
+    font-size: 68px;
+
+    font-weight: 800;
+
+    letter-spacing: 2px;
+
+    text-shadow:
+        0 5px 25px rgba(0, 0, 0, 0.6);
 }
 
 
-/* =========================
+/* =========================================================
    PLAYERS
-   ========================= */
+   ========================================================= */
 
 .players {
     display: grid;
 
     grid-template-columns: 1fr 1fr;
 
-    gap: 30px;
+    gap: 25px;
 
-    margin-bottom: 50px;
+    margin-bottom: 45px;
 }
 
-
 .player {
-    min-height: 300px;
+    position: relative;
+
+    min-height: 320px;
 
     padding: 30px;
 
@@ -342,23 +679,74 @@ body {
 
     align-items: center;
 
-    background: #191c23;
-
-    border-radius: 16px;
-
     text-align: center;
+
+    overflow: hidden;
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 20px 45px rgba(0, 0, 0, 0.4);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
 }
 
+
+/* =========================================================
+   PLAYER ONE
+   ========================================================= */
 
 .player-one {
     border: 2px solid #3b82f6;
+
+    background:
+        radial-gradient(
+            circle at 15% 0%,
+            rgba(59, 130, 246, 0.25),
+            transparent 45%
+        ),
+        linear-gradient(
+            145deg,
+            #182638,
+            #0b111a
+        );
+
+    box-shadow:
+        0 20px 45px rgba(0, 0, 0, 0.4),
+        0 0 40px rgba(59, 130, 246, 0.1);
 }
 
+
+/* =========================================================
+   PLAYER TWO
+   ========================================================= */
 
 .player-two {
-    border: 2px solid #ef4444;
+    border: 2px solid #22c55e;
+
+    background:
+        radial-gradient(
+            circle at 85% 0%,
+            rgba(34, 197, 94, 0.23),
+            transparent 45%
+        ),
+        linear-gradient(
+            145deg,
+            #17291f,
+            #0b130f
+        );
+
+    box-shadow:
+        0 20px 45px rgba(0, 0, 0, 0.4),
+        0 0 40px rgba(34, 197, 94, 0.09);
 }
 
+
+/* =========================================================
+   PLAYER NAME
+   ========================================================= */
 
 .player h2 {
     width: 100%;
@@ -371,21 +759,23 @@ body {
 
     gap: 10px;
 
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 
     font-size: 28px;
+
+    font-weight: 800;
 }
 
 
-/* =========================
+/* =========================================================
    CURRENT PLAYER DOT
-   ========================= */
+   ========================================================= */
 
 #player-one-indicator,
 #player-two-indicator {
-    width: 14px;
+    width: 13px;
 
-    height: 14px;
+    height: 13px;
 
     display: none;
 
@@ -396,31 +786,81 @@ body {
     border-radius: 50%;
 
     box-shadow:
-        0 0 8px rgba(255, 255, 255, 0.6);
+        0 0 10px rgba(255, 255, 255, 0.8);
 }
 
 
-/* =========================
+/* =========================================================
+   BALL SET DISPLAY
+   ========================================================= */
+
+.ball-set {
+    min-height: 26px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    margin-bottom: 22px;
+
+    color: #8f99a9;
+
+    font-size: 14px;
+}
+
+#player-one-ball-indicator,
+#player-two-ball-indicator {
+    width: 18px;
+
+    height: 18px;
+
+    display: none;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    border: 2px solid rgba(255, 255, 255, 0.8);
+}
+
+#player-one-ball-set,
+#player-two-ball-set {
+    font-size: 13px;
+
+    font-weight: bold;
+
+    letter-spacing: 1px;
+}
+
+
+/* =========================================================
    SCORE
-   ========================= */
+   ========================================================= */
 
 #player-one-score,
 #player-two-score {
     display: block;
 
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 
-    font-size: 80px;
+    font-size: 88px;
 
     line-height: 1;
 
-    font-weight: bold;
+    font-weight: 800;
+
+    text-shadow:
+        0 8px 30px rgba(0, 0, 0, 0.5);
 }
 
 
-/* =========================
+/* =========================================================
    SCORE BUTTONS
-   ========================= */
+   ========================================================= */
 
 .score-buttons {
     display: flex;
@@ -429,16 +869,15 @@ body {
 
     align-items: center;
 
-    gap: 12px;
+    gap: 10px;
 
     margin-top: auto;
 }
 
-
 .score-buttons button {
     width: 55px;
 
-    height: 45px;
+    height: 44px;
 
     display: flex;
 
@@ -446,47 +885,51 @@ body {
 
     justify-content: center;
 
-    border: 1px solid #343a46;
+    border: 1px solid #3a4352;
 
-    border-radius: 8px;
+    border-radius: 9px;
 
-    background: #0f1115;
+    background:
+        linear-gradient(
+            145deg,
+            #1c222c,
+            #0c1016
+        );
 
     color: white;
 
-    font-size: 24px;
+    font-size: 23px;
 
     font-weight: bold;
 
     cursor: pointer;
 
     transition:
-        background 0.2s ease,
         transform 0.1s ease,
-        opacity 0.2s ease;
+        background 0.2s ease,
+        border-color 0.2s ease;
 }
-
 
 .score-buttons button:hover:not(:disabled) {
-    background: #343a46;
-}
+    background: #252d39;
 
+    border-color: #586477;
+}
 
 .score-buttons button:active:not(:disabled) {
-    transform: scale(0.95);
+    transform: scale(0.94);
 }
 
-
 .score-buttons button:disabled {
-    opacity: 0.35;
+    opacity: 0.3;
 
     cursor: not-allowed;
 }
 
 
-/* =========================
+/* =========================================================
    SHOT CLOCK
-   ========================= */
+   ========================================================= */
 
 .shot-clock {
     text-align: center;
@@ -494,19 +937,23 @@ body {
     margin-bottom: 30px;
 }
 
-
 #shot-timer {
     display: block;
 
-    font-size: 100px;
+    font-size: 105px;
 
-    font-weight: bold;
+    line-height: 1;
+
+    font-weight: 800;
+
+    text-shadow:
+        0 8px 30px rgba(0, 0, 0, 0.5);
 }
 
 
-/* =========================
+/* =========================================================
    TURN CONTROLS
-   ========================= */
+   ========================================================= */
 
 .turn-controls {
     display: grid;
@@ -517,7 +964,56 @@ body {
 }
 
 
-#shot-button,
+/* =========================================================
+   SHOT BUTTON
+   ========================================================= */
+
+#shot-button {
+    width: 100%;
+
+    padding: 20px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #22c55e,
+            #16a34a
+        );
+
+    color: white;
+
+    font-size: 19px;
+
+    font-weight: 800;
+
+    letter-spacing: 2px;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 10px 30px rgba(34, 197, 94, 0.2);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+#shot-button:hover:not(:disabled) {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 14px 35px rgba(34, 197, 94, 0.3);
+}
+
+
+/* =========================================================
+   END TURN
+   ========================================================= */
+
 #change-turn-button {
     width: 100%;
 
@@ -527,55 +1023,50 @@ body {
 
     border-radius: 12px;
 
+    background:
+        linear-gradient(
+            135deg,
+            #3b82f6,
+            #2563eb
+        );
+
     color: white;
 
-    font-size: 18px;
+    font-size: 19px;
 
-    font-weight: bold;
+    font-weight: 800;
 
-    letter-spacing: 1px;
+    letter-spacing: 2px;
 
     cursor: pointer;
 
-    transition: 0.2s ease;
+    box-shadow:
+        0 10px 30px rgba(59, 130, 246, 0.2);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
 }
-
-
-/* Shot button */
-
-#shot-button {
-    background: #22c55e;
-}
-
-
-#shot-button:hover:not(:disabled) {
-    background: #16a34a;
-
-    transform: translateY(-1px);
-}
-
-
-/* Change turn button */
-
-#change-turn-button {
-    background: #3b82f6;
-}
-
 
 #change-turn-button:hover:not(:disabled) {
-    background: #2563eb;
+    transform: translateY(-2px);
 
-    transform: translateY(-1px);
+    box-shadow:
+        0 14px 35px rgba(59, 130, 246, 0.3);
 }
 
 
-/* Disabled controls */
+/* =========================================================
+   DISABLED GAME BUTTONS
+   ========================================================= */
 
 #shot-button:disabled,
 #change-turn-button:disabled {
-    background: #555b66;
+    background: #343a46;
 
-    color: #9da3ad;
+    color: #737b87;
+
+    box-shadow: none;
 
     cursor: not-allowed;
 
@@ -583,16 +1074,107 @@ body {
 }
 
 
-/* =========================
+/* =========================================================
+   DESKTOP VIEWPORT FIT
+   ========================================================= */
+
+@media (min-width: 601px) {
+
+    body {
+        min-height: 100vh;
+        height: 100vh;
+        overflow: hidden;
+    }
+
+    .match-clock {
+        width: min(1050px, 95vw);
+        max-height: 100vh;
+        padding: 20px 40px;
+    }
+
+    .match-header {
+        margin-bottom: 20px;
+    }
+
+    .lag-selection {
+        margin-bottom: 15px;
+        padding: 20px 25px;
+    }
+
+    .lag-selection h2 {
+        margin-bottom: 15px;
+    }
+
+    .ball-set-selection {
+        margin-bottom: 20px;
+        padding: 18px 25px;
+    }
+
+    .ball-set-selection h3 {
+        margin-bottom: 12px;
+    }
+
+    .match-timer {
+        margin-bottom: 20px;
+    }
+
+    #match-timer {
+        font-size: 52px;
+    }
+
+    .players {
+        margin-bottom: 20px;
+    }
+
+    .player {
+        min-height: 250px;
+        padding: 20px;
+    }
+
+    #player-one-score,
+    #player-two-score {
+        font-size: 70px;
+        margin-bottom: 15px;
+    }
+
+    .shot-clock {
+        margin-bottom: 20px;
+    }
+
+    #shot-timer {
+        font-size: 75px;
+    }
+
+    #shot-button,
+    #change-turn-button {
+        padding: 15px;
+    }
+}
+
+/* =========================================================
    MOBILE
-   ========================= */
+   ========================================================= */
 
 @media (max-width: 600px) {
+
+    body {
+        align-items: flex-start;
+    }
+
 
     .match-clock {
         width: 100%;
 
-        padding: 20px;
+        padding: 20px 15px 30px;
+    }
+
+
+    .neon-wave {
+        width: 180%;
+
+        left: -40%;
+
+        opacity: 0.5;
     }
 
 
@@ -602,19 +1184,27 @@ body {
 
 
     .match-header h1 {
-        font-size: 24px;
+        font-size: 22px;
+
+        letter-spacing: 2px;
     }
 
+
+    /* Setup */
 
     .match-setup {
-        padding: 25px;
+        padding: 25px 20px;
+
+        border-radius: 16px;
     }
 
 
-    .lag-selection {
-        padding: 25px 20px;
+    /* Lag */
 
-        margin-bottom: 30px;
+    .lag-selection {
+        padding: 22px 18px;
+
+        margin-bottom: 20px;
     }
 
 
@@ -628,10 +1218,33 @@ body {
     }
 
 
-    .lag-button {
-        width: 100%;
+    /* Ball set */
+
+    .ball-set-selection {
+        padding: 22px 18px;
+
+        margin-bottom: 30px;
     }
 
+
+    .ball-set-buttons {
+        grid-template-columns: 1fr;
+    }
+
+
+    /* Match timer */
+
+    .match-timer {
+        margin-bottom: 30px;
+    }
+
+
+    #match-timer {
+        font-size: 48px;
+    }
+
+
+    /* Players */
 
     .players {
         gap: 10px;
@@ -641,39 +1254,76 @@ body {
 
 
     .player {
-        min-height: 240px;
+        min-height: 260px;
 
         padding: 20px 10px;
+
+        border-radius: 16px;
     }
 
 
     .player h2 {
-        font-size: 20px;
+        font-size: 19px;
     }
 
 
     #player-one-score,
     #player-two-score {
-        font-size: 55px;
+        font-size: 58px;
     }
 
 
+    #player-one-indicator,
+    #player-two-indicator {
+        width: 10px;
+
+        height: 10px;
+    }
+
+
+    /* Ball set display */
+
+    .ball-set {
+        margin-bottom: 15px;
+
+        font-size: 12px;
+    }
+
+
+    #player-one-ball-set,
+    #player-two-ball-set {
+        font-size: 11px;
+    }
+
+
+    #player-one-ball-indicator,
+    #player-two-ball-indicator {
+        width: 15px;
+
+        height: 15px;
+    }
+
+
+    /* Score buttons */
+
     .score-buttons {
-        gap: 8px;
+        gap: 7px;
     }
 
 
     .score-buttons button {
-        width: 45px;
+        width: 43px;
 
-        height: 40px;
+        height: 38px;
 
         font-size: 20px;
     }
 
 
-    #match-timer {
-        font-size: 48px;
+    /* Shot clock */
+
+    .shot-clock {
+        margin-bottom: 25px;
     }
 
 
@@ -681,6 +1331,8 @@ body {
         font-size: 75px;
     }
 
+
+    /* Turn controls */
 
     .turn-controls {
         grid-template-columns: 1fr;
@@ -691,6 +1343,7 @@ body {
     #change-turn-button {
         padding: 17px;
 
-        font-size: 17px;
+        font-size: 16px;
     }
+
 }
