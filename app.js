@@ -204,12 +204,14 @@ changeTurnButton.addEventListener("click", function () {
 
     updateCurrentPlayerUI(currentPlayer);
 
-    /*
-     * The shot clock remains at its
-     * current value.
-     *
-     * We are only changing the player.
-     */
+    // Reset shot clock for the new player's turn
+    clearInterval(scLimit);
+
+    shotClockLimit = shotClockDuration;
+
+    shotTimer.textContent = formatTime(shotClockLimit);
+
+    startShotClock();
 
 });
 
