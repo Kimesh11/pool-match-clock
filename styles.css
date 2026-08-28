@@ -1,37 +1,361 @@
+/* ============================================================
+   GLOBAL
+   ============================================================ */
+
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
+:root {
+    --background: #05070c;
+    --panel: rgba(10, 14, 23, 0.92);
+    --panel-light: rgba(20, 26, 39, 0.95);
+    --border: rgba(255, 255, 255, 0.10);
 
-/* =========================================================
-   BODY
-   ========================================================= */
+    --text: #f4f7fb;
+    --muted: #8d96a8;
+
+    --blue: #00c8ff;
+    --cyan: #00f0ff;
+    --purple: #9d4edd;
+    --green: #00ff9d;
+    --red: #ff3b4f;
+    --yellow: #ffd83d;
+}
+
+html,
+body {
+    width: 100%;
+    min-height: 100%;
+}
 
 body {
     min-height: 100vh;
 
-    font-family: Arial, sans-serif;
+    background:
+        radial-gradient(
+            circle at 20% 20%,
+            rgba(0, 200, 255, 0.10),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 80% 70%,
+            rgba(157, 78, 221, 0.10),
+            transparent 30%
+        ),
+        var(--background);
+
+    color: var(--text);
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    overflow-x: hidden;
+}
+
+
+/* ============================================================
+   SETUP NEON BACKGROUND
+   ============================================================ */
+
+.neon-background {
+    position: fixed;
+    inset: 0;
+
+    overflow: hidden;
+
+    pointer-events: none;
+
+    z-index: -1;
+}
+
+.neon-wave {
+    position: absolute;
+
+    width: 140%;
+    height: 180px;
+
+    border-radius: 50%;
+
+    filter: blur(35px);
+
+    opacity: 0.30;
+
+    transform: rotate(-8deg);
+}
+
+.wave-blue {
+    top: 10%;
+    left: -20%;
+
+    background: var(--blue);
+}
+
+.wave-purple {
+    top: 35%;
+    left: -20%;
+
+    background: var(--purple);
+
+    transform: rotate(8deg);
+}
+
+.wave-green {
+    top: 60%;
+    left: -20%;
+
+    background: var(--green);
+
+    transform: rotate(-6deg);
+}
+
+.wave-cyan {
+    top: 82%;
+    left: -20%;
+
+    background: var(--cyan);
+
+    transform: rotate(7deg);
+}
+
+
+/* ============================================================
+   MAIN CONTAINER
+   ============================================================ */
+
+.match-clock {
+    width: min(1400px, 94vw);
+
+    min-height: 100vh;
+
+    margin: 0 auto;
+
+    padding: 28px 0 40px;
+}
+
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+
+.match-header {
+    text-align: center;
+
+    margin-bottom: 24px;
+}
+
+.match-header h1 {
+    font-size: clamp(20px, 2vw, 30px);
+
+    letter-spacing: 5px;
+
+    font-weight: 800;
+
+    text-shadow:
+        0 0 15px rgba(0, 240, 255, 0.5);
+}
+
+
+/* ============================================================
+   MATCH SETUP
+   ============================================================ */
+
+.match-setup {
+    width: min(500px, 100%);
+
+    margin: 50px auto;
+
+    padding: 40px;
+
+    background:
+        rgba(8, 12, 20, 0.88);
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 22px;
+
+    backdrop-filter: blur(18px);
+
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.45),
+        0 0 40px rgba(0, 200, 255, 0.05);
+}
+
+.match-setup h2 {
+    text-align: center;
+
+    margin-bottom: 30px;
+
+    font-size: 26px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: var(--muted);
+
+    font-size: 13px;
+
+    text-transform: uppercase;
+
+    letter-spacing: 1px;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+
+    padding: 14px 16px;
+
+    border-radius: 10px;
+
+    border:
+        1px solid var(--border);
+
+    background: #0b1019;
+
+    color: var(--text);
+
+    outline: none;
+
+    font-size: 15px;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: var(--blue);
+
+    box-shadow:
+        0 0 15px rgba(0, 200, 255, 0.15);
+}
+
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+
+button {
+    font-family: inherit;
+
+    border: none;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        opacity 0.2s ease,
+        background 0.2s ease;
+}
+
+button:hover:not(:disabled) {
+    transform: translateY(-2px);
+}
+
+button:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+button:disabled {
+    cursor: not-allowed;
+
+    opacity: 0.35;
+
+    filter: grayscale(0.8);
+
+    box-shadow: none !important;
+
+    transform: none !important;
+}
+
+
+/* ============================================================
+   SETUP MATCH BUTTON
+   ============================================================ */
+
+#setup-match-button,
+#start-match-button {
+    width: 100%;
+
+    margin-top: 10px;
+
+    padding: 15px;
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--blue),
+            var(--purple)
+        );
 
     color: white;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    font-size: 14px;
 
-    position: relative;
+    font-weight: 800;
 
-    overflow-x: hidden;
+    letter-spacing: 2px;
 
-    background:
-        radial-gradient(
-            circle at 50% 30%,
-            #121c2d 0%,
-            #090e17 42%,
-            #030509 100%
-        );
+    box-shadow:
+        0 0 20px rgba(0, 200, 255, 0.18);
 }
+
+#setup-match-button:hover:not(:disabled),
+#start-match-button:hover:not(:disabled) {
+    box-shadow:
+        0 0 30px rgba(0, 200, 255, 0.35);
+}
+
+
+/* ============================================================
+   MATCH SCREEN
+   ============================================================ */
+
+.match-screen {
+    display: none;
+}
+
+
+/*
+   IMPORTANT
+
+   JavaScript sets:
+
+       style.display = "block"
+
+   when moving from setup to the match.
+
+   This selector converts that inline "block" into flex.
+
+   This is what allows the scoreboard to be pushed
+   toward the bottom of the screen.
+*/
+
+#match-screen[style*="display: block"] {
+    display: flex !important;
+
+    flex-direction: column;
+
+    min-height: calc(100vh - 90px);
+}
+
+
+/* ============================================================
+   FULL SCREEN MATCH BACKGROUND
+   ============================================================ */
 
 body.match-active {
     background:
@@ -53,459 +377,98 @@ body.match-active .neon-background {
 }
 
 
-/* =========================================================
-   NEON BACKGROUND
-   ========================================================= */
-
-.neon-background {
-    position: fixed;
-
-    inset: 0;
-
-    overflow: hidden;
-
-    pointer-events: none;
-
-    z-index: 0;
-}
-
-.neon-wave {
-    position: absolute;
-
-    width: 140%;
-
-    height: 190px;
-
-    left: -20%;
-
-    border-radius: 50%;
-
-    transform: rotate(-8deg);
-
-    filter: blur(1px);
-
-    opacity: 0.75;
-}
-
-
-.wave-blue {
-    top: 5%;
-
-    border-top: 3px solid #3b82f6;
-
-    box-shadow:
-        0 -8px 25px rgba(59, 130, 246, 0.65),
-        0 -20px 70px rgba(59, 130, 246, 0.25);
-}
-
-
-.wave-purple {
-    top: 28%;
-
-    border-top: 3px solid #a855f7;
-
-    box-shadow:
-        0 -8px 25px rgba(168, 85, 247, 0.6),
-        0 -20px 70px rgba(168, 85, 247, 0.22);
-}
-
-
-.wave-green {
-    top: 58%;
-
-    border-top: 3px solid #22c55e;
-
-    box-shadow:
-        0 -8px 25px rgba(34, 197, 94, 0.6),
-        0 -20px 70px rgba(34, 197, 94, 0.22);
-}
-
-
-.wave-cyan {
-    top: 82%;
-
-    border-top: 3px solid #06b6d4;
-
-    box-shadow:
-        0 -8px 25px rgba(6, 182, 212, 0.55),
-        0 -20px 70px rgba(6, 182, 212, 0.18);
-}
-
-
-/* =========================================================
-   MAIN CONTAINER
-   ========================================================= */
-
-.match-clock {
-    position: relative;
-
-    z-index: 1;
-
-    width: min(1050px, 95vw);
-
-    padding: 40px;
-}
-
-
-/* =========================================================
-   HEADER
-   ========================================================= */
-
-.match-header {
-    text-align: center;
-
-    margin-bottom: 40px;
-}
-
-.match-header h1 {
-    font-size: 32px;
-
-    letter-spacing: 4px;
-
-    font-weight: 800;
-
-    text-shadow:
-        0 4px 20px rgba(0, 0, 0, 0.6);
-}
-
-
-/* =========================================================
-   SHARED PANELS
-   ========================================================= */
-
-.match-setup,
-.lag-selection,
-.ball-set-selection {
-    background:
-        linear-gradient(
-            145deg,
-            rgba(31, 38, 51, 0.96),
-            rgba(10, 14, 21, 0.96)
-        );
-
-    border: 1px solid rgba(255, 255, 255, 0.08);
-
-    border-radius: 20px;
-
-    box-shadow:
-        0 25px 60px rgba(0, 0, 0, 0.5),
-        inset 0 1px 0 rgba(255, 255, 255, 0.04);
-}
-
-
-/* =========================================================
-   MATCH SETUP
-   ========================================================= */
-
-.match-setup {
-    max-width: 600px;
-
-    margin: 0 auto;
-
-    padding: 38px;
-}
-
-.match-setup h2 {
-    text-align: center;
-
-    margin-bottom: 32px;
-
-    font-size: 25px;
-
-    letter-spacing: 1px;
-}
-
-
-/* =========================================================
-   FORM
-   ========================================================= */
-
-.form-group {
-    margin-bottom: 21px;
-}
-
-.form-group label {
-    display: block;
-
-    margin-bottom: 8px;
-
-    color: #9da7b7;
-
-    font-size: 13px;
-
-    font-weight: bold;
-
-    letter-spacing: 1.5px;
-
-    text-transform: uppercase;
-}
-
-.form-group input,
-.form-group select {
-    width: 100%;
-
-    padding: 15px 16px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #090d13,
-            #11161f
-        );
-
-    color: white;
-
-    border: 1px solid #303846;
-
-    border-radius: 11px;
-
-    font-size: 16px;
-
-    outline: none;
-
-    transition:
-        border-color 0.2s ease,
-        box-shadow 0.2s ease,
-        transform 0.2s ease;
-}
-
-.form-group input::placeholder {
-    color: #5f6876;
-}
-
-.form-group input:focus,
-.form-group select:focus {
-    border-color: #3b82f6;
-
-    box-shadow:
-        0 0 0 3px rgba(59, 130, 246, 0.12);
-
-    transform: translateY(-1px);
-}
-
-
-/* =========================================================
-   SETUP BUTTON
-   ========================================================= */
-
-#setup-match-button {
-    width: 100%;
-
-    margin-top: 10px;
-
-    padding: 17px;
-
-    border: none;
-
-    border-radius: 11px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #3b82f6,
-            #2563eb
-        );
-
-    color: white;
-
-    font-size: 16px;
-
-    font-weight: 800;
-
-    letter-spacing: 1.5px;
-
-    cursor: pointer;
-
-    box-shadow:
-        0 8px 25px rgba(37, 99, 235, 0.25);
-
-    transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease;
-}
-
-#setup-match-button:hover {
-    transform: translateY(-2px);
-
-    box-shadow:
-        0 12px 30px rgba(37, 99, 235, 0.35);
-}
-
-
-/* =========================================================
-   MATCH SCREEN
-   ========================================================= */
-
-.match-screen {
-    display: none;
-}
-
-
-/* =========================================================
+/* ============================================================
    LAG SELECTION
-   ========================================================= */
+   ============================================================ */
 
 .lag-selection {
-    max-width: 720px;
+    width: min(700px, 100%);
 
-    margin: 0 auto 25px;
+    margin: 20px auto 28px;
 
-    padding: 30px;
+    padding: 24px;
+
+    background:
+        rgba(8, 12, 20, 0.90);
+
+    border:
+        1px solid rgba(255, 255, 255, 0.10);
+
+    border-radius: 18px;
+
+    backdrop-filter: blur(15px);
+
+    flex-shrink: 0;
 }
 
 .lag-selection h2 {
     text-align: center;
 
-    margin-bottom: 25px;
+    font-size: 18px;
 
-    font-size: 24px;
+    margin-bottom: 18px;
 
-    letter-spacing: 1px;
+    text-transform: uppercase;
+
+    letter-spacing: 2px;
 }
-
-
-/* =========================================================
-   LAG BUTTONS
-   ========================================================= */
 
 .lag-buttons {
     display: grid;
 
     grid-template-columns: 1fr 1fr;
 
-    gap: 15px;
+    gap: 12px;
 
-    margin-bottom: 22px;
+    margin-bottom: 14px;
 }
 
 .lag-button {
-    padding: 17px;
+    padding: 13px;
 
-    border: 1px solid #343d4c;
+    border-radius: 9px;
 
-    border-radius: 11px;
+    background: #151c29;
 
-    background:
-        linear-gradient(
-            145deg,
-            #171d27,
-            #0d1118
-        );
+    border:
+        1px solid var(--border);
 
     color: white;
 
-    font-size: 16px;
-
-    font-weight: bold;
-
-    letter-spacing: 1px;
-
-    cursor: pointer;
-
-    transition:
-        transform 0.2s ease,
-        border-color 0.2s ease,
-        background 0.2s ease;
+    font-weight: 700;
 }
 
 .lag-button:hover:not(:disabled) {
-    transform: translateY(-2px);
-
-    border-color: #3b82f6;
-
-    background:
-        linear-gradient(
-            145deg,
-            #202938,
-            #10151d
-        );
-}
-
-.lag-button:disabled {
-    opacity: 0.35;
-
-    cursor: not-allowed;
-}
-
-
-/* =========================================================
-   START MATCH
-   ========================================================= */
-
-#start-match-button {
-    width: 100%;
-
-    padding: 18px;
-
-    border: none;
-
-    border-radius: 11px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #22c55e,
-            #16a34a
-        );
-
-    color: white;
-
-    font-size: 18px;
-
-    font-weight: 800;
-
-    letter-spacing: 2px;
-
-    cursor: pointer;
+    border-color: var(--blue);
 
     box-shadow:
-        0 8px 25px rgba(34, 197, 94, 0.2);
-
-    transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease;
-}
-
-#start-match-button:hover:not(:disabled) {
-    transform: translateY(-2px);
-
-    box-shadow:
-        0 12px 30px rgba(34, 197, 94, 0.3);
-}
-
-#start-match-button:disabled {
-    background: #343a46;
-
-    color: #737b87;
-
-    box-shadow: none;
-
-    cursor: not-allowed;
+        0 0 15px rgba(0, 200, 255, 0.18);
 }
 
 
-/* =========================================================
+/* ============================================================
    BALL SET SELECTION
-   ========================================================= */
+   ============================================================ */
 
 .ball-set-selection {
-    max-width: 720px;
+    margin-top: 20px;
 
-    margin: 0 auto 45px;
+    padding-top: 18px;
 
-    padding: 25px;
-
-    text-align: center;
+    border-top:
+        1px solid rgba(255, 255, 255, 0.08);
 }
 
 .ball-set-selection h3 {
-    margin-bottom: 20px;
+    text-align: center;
 
-    color: #d9dee7;
+    font-size: 11px;
 
-    font-size: 17px;
+    letter-spacing: 2px;
 
-    letter-spacing: 1.5px;
+    color: var(--muted);
+
+    margin-bottom: 12px;
 }
 
 .ball-set-buttons {
@@ -513,165 +476,368 @@ body.match-active .neon-background {
 
     grid-template-columns: 1fr 1fr;
 
-    gap: 15px;
+    gap: 12px;
 }
 
 .ball-set-buttons button {
-    padding: 16px;
+    padding: 12px;
 
-    border-radius: 11px;
-
-    font-size: 16px;
+    border-radius: 9px;
 
     font-weight: 800;
-
-    letter-spacing: 1px;
-
-    cursor: pointer;
-
-    transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease,
-        filter 0.2s ease;
 }
 
-
-/* RED */
-
 #red-ball-button {
-    border: 1px solid #ef4444;
-
     background:
         linear-gradient(
             135deg,
-            #dc2626,
-            #991b1b
+            #8f1727,
+            #e52d43
         );
 
     color: white;
 
     box-shadow:
-        0 8px 25px rgba(239, 68, 68, 0.18);
+        0 0 15px rgba(255, 59, 79, 0.15);
 }
-
-#red-ball-button:hover {
-    transform: translateY(-2px);
-
-    filter: brightness(1.12);
-
-    box-shadow:
-        0 12px 30px rgba(239, 68, 68, 0.3);
-}
-
-
-/* YELLOW */
 
 #yellow-ball-button {
-    border: 1px solid #eab308;
-
     background:
         linear-gradient(
             135deg,
-            #facc15,
-            #ca8a04
+            #9c7a00,
+            #ffd83d
         );
 
-    color: #111827;
+    color: #111;
 
     box-shadow:
-        0 8px 25px rgba(234, 179, 8, 0.18);
-}
-
-#yellow-ball-button:hover {
-    transform: translateY(-2px);
-
-    filter: brightness(1.08);
-
-    box-shadow:
-        0 12px 30px rgba(234, 179, 8, 0.3);
+        0 0 15px rgba(255, 216, 61, 0.15);
 }
 
 .ball-set-buttons button:disabled {
     background: #343a46 !important;
+
     border-color: #4b5563 !important;
+
     color: #737b87 !important;
 
-    opacity: 0.5;
+    opacity: 0.45;
 
     cursor: not-allowed;
 
-    box-shadow: none;
-
-    transform: none;
+    box-shadow: none !important;
 }
 
 .ball-set-buttons button:disabled:hover {
     background: #343a46 !important;
+
     border-color: #4b5563 !important;
-
-    filter: none;
-
-    box-shadow: none;
 
     transform: none;
 }
 
-/* =========================================================
-   MATCH TIMER
-   ========================================================= */
 
-.match-timer {
-    text-align: center;
+/* ============================================================
+   BROADCAST SCOREBOARD
+   ============================================================ */
 
-    margin-bottom: 45px;
+.broadcast-scoreboard {
+    display: grid;
+
+    grid-template-columns:
+        1fr
+        240px
+        1fr;
+
+    min-height: 190px;
+
+    /*
+       THIS is the main positioning fix.
+
+       Because #match-screen is now flex-column,
+       auto consumes all available vertical space.
+
+       Therefore the scoreboard is pushed down.
+    */
+
+    margin-top: auto;
+
+    flex-shrink: 0;
+
+    border:
+        1px solid rgba(255, 255, 255, 0.12);
+
+    background:
+        rgba(5, 8, 14, 0.94);
+
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.45);
+
+    backdrop-filter: blur(14px);
+
+    overflow: hidden;
 }
 
-.label {
+
+/* ============================================================
+   BROADCAST PLAYER
+   ============================================================ */
+
+.broadcast-player {
+    position: relative;
+
+    padding: 22px 28px;
+
+    display: grid;
+
+    grid-template-columns: 1fr auto;
+
+    grid-template-rows: auto 1fr;
+
+    align-items: center;
+
+    gap: 10px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(0, 150, 255, 0.13),
+            rgba(0, 0, 0, 0)
+        );
+}
+
+
+/* ============================================================
+   PLAYER 1
+   NAME LEFT
+   SCORE RIGHT
+   ============================================================ */
+
+.player-one-broadcast {
+    text-align: left;
+
+    grid-template-columns: 1fr auto;
+}
+
+.player-one-broadcast .player-info {
+    grid-column: 1;
+
+    grid-row: 1;
+
+    justify-content: flex-start;
+}
+
+.player-one-broadcast .player-ball-set {
+    grid-column: 1;
+
+    grid-row: 2;
+
+    justify-content: flex-start;
+}
+
+.player-one-broadcast .broadcast-score {
+    grid-column: 2;
+
+    grid-row: 1 / 3;
+}
+
+
+/* ============================================================
+   PLAYER 2
+   SCORE LEFT
+   NAME RIGHT
+   ============================================================ */
+
+.player-two-broadcast {
+    background:
+        linear-gradient(
+            225deg,
+            rgba(0, 255, 157, 0.13),
+            rgba(0, 0, 0, 0)
+        );
+
+    text-align: right;
+
+    grid-template-columns: auto 1fr;
+}
+
+.player-two-broadcast .player-info {
+    grid-column: 2;
+
+    grid-row: 1;
+
+    justify-content: flex-end;
+
+    text-align: right;
+}
+
+.player-two-broadcast .player-ball-set {
+    grid-column: 2;
+
+    grid-row: 2;
+
+    justify-content: flex-end;
+}
+
+.player-two-broadcast .broadcast-score {
+    grid-column: 1;
+
+    grid-row: 1 / 3;
+}
+
+
+/* ============================================================
+   PLAYER INFORMATION
+   ============================================================ */
+
+.player-info {
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+}
+
+.player-label {
     display: block;
 
-    margin-bottom: 7px;
+    color: var(--muted);
 
-    color: #6f7a8b;
-
-    font-size: 12px;
-
-    font-weight: bold;
-
-    letter-spacing: 4px;
-}
-
-#match-timer {
-    font-size: 68px;
-
-    font-weight: 800;
+    font-size: 10px;
 
     letter-spacing: 2px;
 
+    margin-bottom: 4px;
+}
+
+.broadcast-player h2 {
+    font-size:
+        clamp(20px, 2vw, 30px);
+
+    text-transform: uppercase;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+}
+
+
+/* ============================================================
+   ACTIVE PLAYER INDICATOR
+   ============================================================ */
+
+.player-status {
+    display: none;
+
+    width: 10px;
+
+    height: 10px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background: var(--cyan);
+
+    box-shadow:
+        0 0 8px var(--cyan),
+        0 0 18px var(--cyan);
+
+    animation: pulse 1.2s infinite;
+}
+
+
+/* ============================================================
+   BALL SET DISPLAY
+   ============================================================ */
+
+.player-ball-set {
+    color: var(--muted);
+
+    font-size: 12px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+}
+
+.ball-indicator {
+    width: 13px;
+
+    height: 13px;
+
+    display: inline-block;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background: #4a5261;
+
+    border:
+        2px solid rgba(255, 255, 255, 0.3);
+}
+
+.ball-indicator.red-ball {
+    background: var(--red);
+
+    border-color: #ff7582;
+
+    box-shadow:
+        0 0 10px rgba(255, 59, 79, 0.7);
+}
+
+.ball-indicator.yellow-ball {
+    background: var(--yellow);
+
+    border-color: #fff0a1;
+
+    box-shadow:
+        0 0 10px rgba(255, 216, 61, 0.7);
+}
+
+
+/* ============================================================
+   BROADCAST SCORE
+   ============================================================ */
+
+.broadcast-score {
+    font-size:
+        clamp(70px, 8vw, 110px);
+
+    line-height: 1;
+
+    font-weight: 900;
+
+    align-self: center;
+}
+
+.player-one-broadcast .broadcast-score {
+    color: var(--blue);
+
     text-shadow:
-        0 5px 25px rgba(0, 0, 0, 0.6);
+        0 0 20px rgba(0, 200, 255, 0.35);
+}
+
+.player-two-broadcast .broadcast-score {
+    color: var(--green);
+
+    text-shadow:
+        0 0 20px rgba(0, 255, 157, 0.35);
 }
 
 
-/* =========================================================
-   PLAYERS
-   ========================================================= */
+/* ============================================================
+   CENTRE MATCH INFORMATION
+   ============================================================ */
 
-.players {
-    display: grid;
-
-    grid-template-columns: 1fr 1fr;
-
-    gap: 25px;
-
-    margin-bottom: 45px;
-}
-
-.player {
+.broadcast-center {
     position: relative;
-
-    min-height: 320px;
-
-    padding: 30px;
 
     display: flex;
 
@@ -679,671 +845,604 @@ body.match-active .neon-background {
 
     align-items: center;
 
-    text-align: center;
+    justify-content: center;
+
+    background:
+        rgba(0, 0, 0, 0.28);
+
+    border-left:
+        1px solid rgba(255, 255, 255, 0.08);
+
+    border-right:
+        1px solid rgba(255, 255, 255, 0.08);
+}
+
+.race-to {
+    color: var(--muted);
+
+    font-size: 10px;
+
+    letter-spacing: 3px;
+
+    text-transform: uppercase;
+}
+
+.race-number {
+    font-size: 30px;
+
+    font-weight: 900;
+
+    line-height: 1;
+
+    margin-top: 2px;
+
+    color: white;
+}
+
+.center-divider {
+    width: 55px;
+
+    height: 1px;
+
+    margin: 12px 0;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            var(--blue),
+            transparent
+        );
+}
+
+.match-time-label {
+    color: var(--muted);
+
+    font-size: 9px;
+
+    letter-spacing: 2px;
+}
+
+.broadcast-match-timer {
+    font-size: 22px;
+
+    font-weight: 800;
+
+    font-variant-numeric: tabular-nums;
+}
+
+.center-score {
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    margin-top: 7px;
+
+    font-size: 17px;
+
+    font-weight: 800;
+}
+
+.score-divider {
+    color: var(--muted);
+}
+
+
+/* ============================================================
+   SHOT CLOCK
+   ============================================================ */
+
+.broadcast-shot-clock {
+    margin-top: 14px;
+
+    padding: 15px 20px;
+
+    flex-shrink: 0;
+
+    background:
+        rgba(5, 8, 14, 0.92);
+
+    border:
+        1px solid rgba(255, 255, 255, 0.10);
+
+    backdrop-filter: blur(12px);
+}
+
+.shot-clock-header {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 9px;
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    letter-spacing: 2px;
+}
+
+#shot-clock-status {
+    color: var(--red);
+}
+
+.shot-clock-track {
+    width: 100%;
+
+    height: 9px;
+
+    background:
+        rgba(255, 255, 255, 0.08);
 
     overflow: hidden;
 
     border-radius: 20px;
-
-    box-shadow:
-        0 20px 45px rgba(0, 0, 0, 0.4);
-
-    transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease;
 }
 
-
-/* =========================================================
-   PLAYER ONE
-   ========================================================= */
-
-.player-one {
-    border: 2px solid #3b82f6;
-
-    background:
-        radial-gradient(
-            circle at 15% 0%,
-            rgba(59, 130, 246, 0.25),
-            transparent 45%
-        ),
-        linear-gradient(
-            145deg,
-            #182638,
-            #0b111a
-        );
-
-    box-shadow:
-        0 20px 45px rgba(0, 0, 0, 0.4),
-        0 0 40px rgba(59, 130, 246, 0.1);
-}
-
-
-/* =========================================================
-   PLAYER TWO
-   ========================================================= */
-
-.player-two {
-    border: 2px solid #22c55e;
-
-    background:
-        radial-gradient(
-            circle at 85% 0%,
-            rgba(34, 197, 94, 0.23),
-            transparent 45%
-        ),
-        linear-gradient(
-            145deg,
-            #17291f,
-            #0b130f
-        );
-
-    box-shadow:
-        0 20px 45px rgba(0, 0, 0, 0.4),
-        0 0 40px rgba(34, 197, 94, 0.09);
-}
-
-
-/* =========================================================
-   PLAYER NAME
-   ========================================================= */
-
-.player h2 {
+.shot-clock-progress {
     width: 100%;
 
-    display: flex;
+    height: 100%;
 
-    align-items: center;
-
-    justify-content: center;
-
-    gap: 10px;
-
-    margin-bottom: 10px;
-
-    font-size: 28px;
-
-    font-weight: 800;
-}
-
-
-/* =========================================================
-   CURRENT PLAYER DOT
-   ========================================================= */
-
-#player-one-indicator,
-#player-two-indicator {
-    width: 13px;
-
-    height: 13px;
-
-    display: none;
-
-    flex-shrink: 0;
-
-    background: white;
-
-    border-radius: 50%;
+    background:
+        linear-gradient(
+            90deg,
+            #ff243f,
+            #ff5b69
+        );
 
     box-shadow:
-        0 0 10px rgba(255, 255, 255, 0.8);
+        0 0 14px rgba(255, 59, 79, 0.65);
+
+    transition:
+        width 0.9s linear;
+}
+
+.broadcast-shot-time {
+    text-align: center;
+
+    font-size: 32px;
+
+    line-height: 1;
+
+    font-weight: 900;
+
+    margin-top: 9px;
+
+    font-variant-numeric: tabular-nums;
 }
 
 
-/* =========================================================
-   BALL SET DISPLAY
-   ========================================================= */
+/* ============================================================
+   OPERATOR CONTROLS
+   ============================================================ */
 
-.ball-set {
-    min-height: 26px;
+.operator-controls {
+    display: grid;
 
+    grid-template-columns:
+        1fr
+        auto
+        1fr;
+
+    align-items: center;
+
+    gap: 25px;
+
+    margin-top: 14px;
+
+    padding: 16px 20px;
+
+    flex-shrink: 0;
+
+    background:
+        rgba(5, 8, 14, 0.88);
+
+    border:
+        1px solid rgba(255, 255, 255, 0.08);
+
+    backdrop-filter: blur(12px);
+}
+
+.score-control {
     display: flex;
 
     align-items: center;
 
-    justify-content: center;
-
-    gap: 8px;
-
-    margin-bottom: 22px;
-
-    color: #8f99a9;
-
-    font-size: 14px;
+    gap: 12px;
 }
 
-#player-one-ball-indicator,
-#player-two-ball-indicator {
-    width: 18px;
-
-    height: 18px;
-
-    display: none;
-
-    flex-shrink: 0;
-
-    border-radius: 50%;
-
-    border: 2px solid rgba(255, 255, 255, 0.8);
+.score-control:last-child {
+    justify-content: flex-end;
 }
 
-#player-one-ball-set,
-#player-two-ball-set {
-    font-size: 13px;
+.score-control > span {
+    color: var(--muted);
 
-    font-weight: bold;
+    font-size: 10px;
+
+    font-weight: 800;
 
     letter-spacing: 1px;
 }
 
-
-/* =========================================================
-   SCORE
-   ========================================================= */
-
-#player-one-score,
-#player-two-score {
-    display: block;
-
-    margin-bottom: 25px;
-
-    font-size: 88px;
-
-    line-height: 1;
-
-    font-weight: 800;
-
-    text-shadow:
-        0 8px 30px rgba(0, 0, 0, 0.5);
-}
-
-
-/* =========================================================
-   SCORE BUTTONS
-   ========================================================= */
-
 .score-buttons {
     display: flex;
 
-    justify-content: center;
-
-    align-items: center;
-
-    gap: 10px;
-
-    margin-top: auto;
+    gap: 5px;
 }
 
 .score-buttons button {
-    width: 55px;
+    width: 38px;
 
-    height: 44px;
+    height: 34px;
 
-    display: flex;
+    border-radius: 7px;
 
-    align-items: center;
+    background: #151c29;
 
-    justify-content: center;
-
-    border: 1px solid #3a4352;
-
-    border-radius: 9px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #1c222c,
-            #0c1016
-        );
+    border:
+        1px solid rgba(255, 255, 255, 0.08);
 
     color: white;
 
-    font-size: 23px;
+    font-size: 20px;
 
-    font-weight: bold;
-
-    cursor: pointer;
-
-    transition:
-        transform 0.1s ease,
-        background 0.2s ease,
-        border-color 0.2s ease;
+    font-weight: 800;
 }
 
 .score-buttons button:hover:not(:disabled) {
-    background: #252d39;
+    background: #202a3b;
 
-    border-color: #586477;
-}
-
-.score-buttons button:active:not(:disabled) {
-    transform: scale(0.94);
-}
-
-.score-buttons button:disabled {
-    opacity: 0.3;
-
-    cursor: not-allowed;
+    border-color: var(--blue);
 }
 
 
-/* =========================================================
-   SHOT CLOCK
-   ========================================================= */
-
-.shot-clock {
-    text-align: center;
-
-    margin-bottom: 30px;
-}
-
-#shot-timer {
-    display: block;
-
-    font-size: 105px;
-
-    line-height: 1;
-
-    font-weight: 800;
-
-    text-shadow:
-        0 8px 30px rgba(0, 0, 0, 0.5);
-}
-
-
-/* =========================================================
+/* ============================================================
    TURN CONTROLS
-   ========================================================= */
+   ============================================================ */
 
 .turn-controls {
-    display: grid;
+    display: flex;
 
-    grid-template-columns: 1fr 1fr;
-
-    gap: 15px;
+    gap: 8px;
 }
 
+.turn-controls button {
+    padding: 12px 18px;
 
-/* =========================================================
-   SHOT BUTTON
-   ========================================================= */
+    border-radius: 7px;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    letter-spacing: 1px;
+}
 
 #shot-button {
-    width: 100%;
-
-    padding: 20px;
-
-    border: none;
-
-    border-radius: 12px;
-
     background:
         linear-gradient(
             135deg,
-            #22c55e,
-            #16a34a
+            var(--blue),
+            #0077ff
         );
 
     color: white;
-
-    font-size: 19px;
-
-    font-weight: 800;
-
-    letter-spacing: 2px;
-
-    cursor: pointer;
-
-    box-shadow:
-        0 10px 30px rgba(34, 197, 94, 0.2);
-
-    transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease;
 }
-
-#shot-button:hover:not(:disabled) {
-    transform: translateY(-2px);
-
-    box-shadow:
-        0 14px 35px rgba(34, 197, 94, 0.3);
-}
-
-
-/* =========================================================
-   END TURN
-   ========================================================= */
 
 #change-turn-button {
-    width: 100%;
-
-    padding: 20px;
-
-    border: none;
-
-    border-radius: 12px;
-
     background:
         linear-gradient(
             135deg,
-            #3b82f6,
-            #2563eb
+            var(--purple),
+            #6427a5
         );
 
     color: white;
-
-    font-size: 19px;
-
-    font-weight: 800;
-
-    letter-spacing: 2px;
-
-    cursor: pointer;
-
-    box-shadow:
-        0 10px 30px rgba(59, 130, 246, 0.2);
-
-    transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease;
-}
-
-#change-turn-button:hover:not(:disabled) {
-    transform: translateY(-2px);
-
-    box-shadow:
-        0 14px 35px rgba(59, 130, 246, 0.3);
 }
 
 
-/* =========================================================
-   DISABLED GAME BUTTONS
-   ========================================================= */
+/* ============================================================
+   ACTIVE PLAYER ANIMATION
+   ============================================================ */
 
-#shot-button:disabled,
-#change-turn-button:disabled {
-    background: #343a46;
+@keyframes pulse {
 
-    color: #737b87;
+    0% {
+        opacity: 1;
 
-    box-shadow: none;
+        transform: scale(1);
+    }
 
-    cursor: not-allowed;
+    50% {
+        opacity: 0.45;
 
-    transform: none;
+        transform: scale(0.75);
+    }
+
+    100% {
+        opacity: 1;
+
+        transform: scale(1);
+    }
 }
 
 
-/* =========================================================
-   DESKTOP VIEWPORT FIT
-   ========================================================= */
+/* ============================================================
+   DESKTOP
+   ============================================================ */
 
 @media (min-width: 601px) {
 
     body {
         min-height: 100vh;
-        height: 100vh;
-        overflow: hidden;
+
+        overflow-x: hidden;
     }
 
     .match-clock {
-        width: min(1050px, 95vw);
-        max-height: 100vh;
-        padding: 20px 40px;
+        min-height: 100vh;
+
+        padding-top: 20px;
+
+        padding-bottom: 25px;
     }
 
     .match-header {
-        margin-bottom: 20px;
+        margin-bottom: 15px;
     }
+
+    /*
+       Lag winner and ball selector remain at the top.
+    */
 
     .lag-selection {
-        margin-bottom: 15px;
-        padding: 20px 25px;
+        margin-top: 10px;
+
+        margin-bottom: 18px;
+
+        padding: 18px 24px;
     }
 
-    .lag-selection h2 {
-        margin-bottom: 15px;
+    /*
+       Scoreboard is pushed down by margin-top: auto.
+    */
+
+    .broadcast-scoreboard {
+        min-height: 175px;
+
+        margin-top: auto;
     }
 
-    .ball-set-selection {
-        margin-bottom: 20px;
-        padding: 18px 25px;
+    .broadcast-shot-clock {
+        margin-top: 14px;
     }
 
-    .ball-set-selection h3 {
-        margin-bottom: 12px;
-    }
-
-    .match-timer {
-        margin-bottom: 20px;
-    }
-
-    #match-timer {
-        font-size: 52px;
-    }
-
-    .players {
-        margin-bottom: 20px;
-    }
-
-    .player {
-        min-height: 250px;
-        padding: 20px;
-    }
-
-    #player-one-score,
-    #player-two-score {
-        font-size: 70px;
-        margin-bottom: 15px;
-    }
-
-    .shot-clock {
-        margin-bottom: 20px;
-    }
-
-    #shot-timer {
-        font-size: 75px;
-    }
-
-    #shot-button,
-    #change-turn-button {
-        padding: 15px;
+    .operator-controls {
+        margin-top: 14px;
     }
 }
 
-/* =========================================================
+
+/* ============================================================
+   TABLET
+   ============================================================ */
+
+@media (max-width: 900px) {
+
+    .broadcast-scoreboard {
+        grid-template-columns:
+            1fr
+            150px
+            1fr;
+    }
+
+    .broadcast-player {
+        padding: 18px;
+    }
+
+    .broadcast-player h2 {
+        font-size: 18px;
+    }
+
+    .broadcast-score {
+        font-size: 65px;
+    }
+
+    .broadcast-center {
+        padding: 10px;
+    }
+
+    .operator-controls {
+        gap: 10px;
+    }
+}
+
+
+/* ============================================================
    MOBILE
-   ========================================================= */
+   ============================================================ */
 
 @media (max-width: 600px) {
 
     body {
-        align-items: flex-start;
+        overflow-y: auto;
     }
-
 
     .match-clock {
-        width: 100%;
+        width: 94vw;
 
-        padding: 20px 15px 30px;
+        min-height: 100vh;
+
+        padding-top: 15px;
     }
-
-
-    .neon-wave {
-        width: 180%;
-
-        left: -40%;
-
-        opacity: 0.5;
-    }
-
-
-    .match-header {
-        margin-bottom: 25px;
-    }
-
 
     .match-header h1 {
-        font-size: 22px;
+        font-size: 16px;
 
-        letter-spacing: 2px;
+        letter-spacing: 3px;
     }
-
-
-    /* Setup */
 
     .match-setup {
-        padding: 25px 20px;
+        padding: 25px;
 
-        border-radius: 16px;
+        margin-top: 30px;
     }
-
-
-    /* Lag */
 
     .lag-selection {
-        padding: 22px 18px;
+        padding: 18px;
+    }
 
-        margin-bottom: 20px;
+    /*
+       On mobile we don't force the scoreboard
+       to the bottom because the content needs
+       to remain scrollable.
+    */
+
+    #match-screen[style*="display: block"] {
+        display: flex !important;
+
+        min-height: auto;
+    }
+
+    .broadcast-scoreboard {
+        grid-template-columns: 1fr;
+
+        margin-top: 35px;
+    }
+
+    .broadcast-player {
+        min-height: 130px;
     }
 
 
-    .lag-selection h2 {
-        font-size: 21px;
+    /*
+       PLAYER 1
+
+       NAME / INFO LEFT
+       SCORE RIGHT
+    */
+
+    .player-one-broadcast {
+        grid-template-columns: 1fr auto;
+    }
+
+    .player-one-broadcast .player-info {
+        grid-column: 1;
+
+        grid-row: 1;
+
+        justify-content: flex-start;
+    }
+
+    .player-one-broadcast .player-ball-set {
+        grid-column: 1;
+
+        grid-row: 2;
+
+        justify-content: flex-start;
+    }
+
+    .player-one-broadcast .broadcast-score {
+        grid-column: 2;
+
+        grid-row: 1 / 3;
     }
 
 
-    .lag-buttons {
+    /*
+       PLAYER 2
+
+       SCORE LEFT
+       NAME / INFO RIGHT
+    */
+
+    .player-two-broadcast {
+        grid-template-columns: auto 1fr;
+
+        text-align: right;
+    }
+
+    .player-two-broadcast .player-info {
+        grid-column: 2;
+
+        grid-row: 1;
+
+        justify-content: flex-end;
+
+        text-align: right;
+    }
+
+    .player-two-broadcast .player-ball-set {
+        grid-column: 2;
+
+        grid-row: 2;
+
+        justify-content: flex-end;
+    }
+
+    .player-two-broadcast .broadcast-score {
+        grid-column: 1;
+
+        grid-row: 1 / 3;
+    }
+
+
+    /*
+       CENTRE MATCH INFORMATION
+    */
+
+    .broadcast-center {
+        min-height: 150px;
+
+        border-left: none;
+
+        border-right: none;
+
+        border-top:
+            1px solid rgba(255, 255, 255, 0.08);
+
+        border-bottom:
+            1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .broadcast-score {
+        font-size: 65px;
+    }
+
+
+    /*
+       OPERATOR CONTROLS
+    */
+
+    .operator-controls {
         grid-template-columns: 1fr;
     }
 
-
-    /* Ball set */
-
-    .ball-set-selection {
-        padding: 22px 18px;
-
-        margin-bottom: 30px;
+    .score-control,
+    .score-control:last-child {
+        justify-content: space-between;
     }
 
+    .turn-controls {
+        width: 100%;
+    }
+
+    .turn-controls button {
+        flex: 1;
+    }
+
+
+    /*
+       BALL SET BUTTONS
+    */
 
     .ball-set-buttons {
         grid-template-columns: 1fr;
     }
-
-
-    /* Match timer */
-
-    .match-timer {
-        margin-bottom: 30px;
-    }
-
-
-    #match-timer {
-        font-size: 48px;
-    }
-
-
-    /* Players */
-
-    .players {
-        gap: 10px;
-
-        margin-bottom: 35px;
-    }
-
-
-    .player {
-        min-height: 260px;
-
-        padding: 20px 10px;
-
-        border-radius: 16px;
-    }
-
-
-    .player h2 {
-        font-size: 19px;
-    }
-
-
-    #player-one-score,
-    #player-two-score {
-        font-size: 58px;
-    }
-
-
-    #player-one-indicator,
-    #player-two-indicator {
-        width: 10px;
-
-        height: 10px;
-    }
-
-
-    /* Ball set display */
-
-    .ball-set {
-        margin-bottom: 15px;
-
-        font-size: 12px;
-    }
-
-
-    #player-one-ball-set,
-    #player-two-ball-set {
-        font-size: 11px;
-    }
-
-
-    #player-one-ball-indicator,
-    #player-two-ball-indicator {
-        width: 15px;
-
-        height: 15px;
-    }
-
-
-    /* Score buttons */
-
-    .score-buttons {
-        gap: 7px;
-    }
-
-
-    .score-buttons button {
-        width: 43px;
-
-        height: 38px;
-
-        font-size: 20px;
-    }
-
-
-    /* Shot clock */
-
-    .shot-clock {
-        margin-bottom: 25px;
-    }
-
-
-    #shot-timer {
-        font-size: 75px;
-    }
-
-
-    /* Turn controls */
-
-    .turn-controls {
-        grid-template-columns: 1fr;
-    }
-
-
-    #shot-button,
-    #change-turn-button {
-        padding: 17px;
-
-        font-size: 16px;
-    }
-
 }
