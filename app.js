@@ -1,6 +1,6 @@
-/* =========================================================
-   ELEMENTS
-   ========================================================= */
+// ============================================================
+// ELEMENT REFERENCES
+// ============================================================
 
 const matchSetupButton =
     document.getElementById("setup-match-button");
@@ -15,20 +15,12 @@ const matchStartButton =
     document.getElementById("start-match-button");
 
 
-/* =========================================================
-   LAG
-   ========================================================= */
-
 const lagP1 =
     document.getElementById("player-one-lag");
 
 const lagP2 =
     document.getElementById("player-two-lag");
 
-
-/* =========================================================
-   CURRENT PLAYER INDICATORS
-   ========================================================= */
 
 const p1Indicator =
     document.getElementById("player-one-indicator");
@@ -37,25 +29,15 @@ const p2Indicator =
     document.getElementById("player-two-indicator");
 
 
-/* =========================================================
-   PLAYERS
-   ========================================================= */
-
 const player1 =
     document.getElementById("player-one-input");
 
 const player2 =
     document.getElementById("player-two-input");
 
+const playerRace =
+    document.getElementById("player-race-input");
 
-let currentPlayer = null;
-
-let matchStarted = false;
-
-
-/* =========================================================
-   MATCH SETTINGS
-   ========================================================= */
 
 const matchTime =
     document.getElementById("match-duration");
@@ -64,21 +46,6 @@ const shotClock =
     document.getElementById("shot-clock-duration");
 
 
-let shotClockDuration = 0;
-
-let timeLimit = 0;
-
-let shotClockLimit = 0;
-
-let scLimit = null;
-
-let matchTimerInterval = null;
-
-
-/* =========================================================
-   TIMER DISPLAY
-   ========================================================= */
-
 const matchTimer =
     document.getElementById("match-timer");
 
@@ -86,9 +53,51 @@ const shotTimer =
     document.getElementById("shot-timer");
 
 
-/* =========================================================
-   SCORE BUTTONS
-   ========================================================= */
+// ============================================================
+// BALL SET BUTTONS
+// ============================================================
+
+const redBallButton =
+    document.getElementById("red-ball-button");
+
+const yellowBallButton =
+    document.getElementById("yellow-ball-button");
+
+
+// ============================================================
+// BALL SET DISPLAY
+// ============================================================
+
+const playerOneBallIndicator =
+    document.getElementById("player-one-ball-indicator");
+
+const playerTwoBallIndicator =
+    document.getElementById("player-two-ball-indicator");
+
+const playerOneBallSet =
+    document.getElementById("player-one-ball-set");
+
+const playerTwoBallSet =
+    document.getElementById("player-two-ball-set");
+
+
+// ============================================================
+// SCORES
+// ============================================================
+
+const playerOneScoreDisplay =
+    document.getElementById("player-one-score");
+
+const playerTwoScoreDisplay =
+    document.getElementById("player-two-score");
+
+
+const centerScoreOne =
+    document.getElementById("center-score-one");
+
+const centerScoreTwo =
+    document.getElementById("center-score-two");
+
 
 const playerOneMinus =
     document.getElementById("player-one-minus");
@@ -103,204 +112,106 @@ const playerTwoPlus =
     document.getElementById("player-two-plus");
 
 
-/* =========================================================
-   SCORE DISPLAY
-   ========================================================= */
+// ============================================================
+// SHOT CLOCK UI
+// ============================================================
 
-const playerOneScoreDisplay =
-    document.getElementById("player-one-score");
+const shotClockProgress =
+    document.getElementById("shot-clock-progress");
 
-const playerTwoScoreDisplay =
-    document.getElementById("player-two-score");
+const shotClockStatus =
+    document.getElementById("shot-clock-status");
 
+
+// ============================================================
+// STATE
+// ============================================================
+
+let currentPlayer = null;
+
+let matchStarted = false;
+
+let shotClockDuration = 0;
+
+let timeLimit = 0;
+
+let shotClockLimit = 0;
+
+let matchTimerInterval = null;
+
+let scLimit = null;
 
 let playerOneScore = 0;
 
 let playerTwoScore = 0;
 
 
-/* =========================================================
-   BALL SET SELECTION
-   ========================================================= */
-
-const redBallButton =
-    document.getElementById("red-ball-button");
-
-const yellowBallButton =
-    document.getElementById("yellow-ball-button");
-
-
-const playerOneBallIndicator =
-    document.getElementById("player-one-ball-indicator");
-
-const playerTwoBallIndicator =
-    document.getElementById("player-two-ball-indicator");
-
-
-const playerOneBallSetDisplay =
-    document.getElementById("player-one-ball-set");
-
-const playerTwoBallSetDisplay =
-    document.getElementById("player-two-ball-set");
-
-
-let playerOneBallSet = null;
-
-let playerTwoBallSet = null;
-
-
-/* =========================================================
-   SHOT TAKEN
-   ========================================================= */
-
-shotButton.addEventListener("click", function () {
-
-    if (currentPlayer == null) {
-        return;
-    }
-
-
-    /*
-     * The player takes a shot.
-     *
-     * The current player does NOT change here.
-     *
-     * The shot clock simply restarts.
-     */
-
-    clearInterval(scLimit);
-
-    shotClockLimit = shotClockDuration;
-
-    shotTimer.textContent =
-        formatTime(shotClockLimit);
-
-    startShotClock();
-
-});
-
-
-/* =========================================================
-   END TURN
-   ========================================================= */
-
-changeTurnButton.addEventListener("click", function () {
-
-    if (!matchStarted) {
-        return;
-    }
-
-
-    if (currentPlayer === player1.value) {
-
-        currentPlayer = player2.value;
-
-    } else {
-
-        currentPlayer = player1.value;
-
-    }
-
-
-    updateCurrentPlayerUI(currentPlayer);
-
-    // Reset shot clock for the new player's turn
-    clearInterval(scLimit);
-
-    shotClockLimit = shotClockDuration;
-
-    shotTimer.textContent = formatTime(shotClockLimit);
-
-    startShotClock();
-
-});
-
-
-/* =========================================================
-   MATCH SETUP
-   ========================================================= */
+// ============================================================
+// SETUP MATCH
+// ============================================================
 
 matchSetupButton.addEventListener("click", function () {
+
+    if (
+        player1.value.trim() === "" ||
+        player2.value.trim() === "" ||
+        matchTime.value === "" ||
+        shotClock.value === ""
+    ) {
+        alert("Please complete all match setup fields.");
+        return;
+    }
+
 
     timeLimit =
         Number(matchTime.value);
 
-    shotClockLimit =
-        Number(shotClock.value);
-
     shotClockDuration =
         Number(shotClock.value);
 
-
-    /*
-     * Reset match state.
-     */
-
-    currentPlayer = null;
-
-    matchStarted = false;
-
-    playerOneScore = 0;
-
-    playerTwoScore = 0;
-
-    playerOneBallSet = null;
-
-    playerTwoBallSet = null;
+    shotClockLimit =
+        shotClockDuration;
 
 
-    /*
-     * Reset UI.
-     */
+    document.getElementById(
+        "player-one-name"
+    ).textContent = player1.value;
 
-    playerOneScoreDisplay.textContent = "0";
-
-    playerTwoScoreDisplay.textContent = "0";
-
-
-    playerOneBallSetDisplay.textContent =
-        "Ball set not selected";
-
-    playerTwoBallSetDisplay.textContent =
-        "Ball set not selected";
+    document.getElementById(
+        "player-two-name"
+    ).textContent = player2.value;
 
 
-    playerOneBallIndicator.style.display =
-        "none";
+    document.getElementById(
+        "operator-player-one"
+    ).textContent =
+        player1.value;
 
-    playerTwoBallIndicator.style.display =
-        "none";
+    document.getElementById(
+        "operator-player-two"
+    ).textContent =
+        player2.value;
 
-
-    document.getElementById("player-one-name")
-        .textContent = player1.value;
-
-    document.getElementById("player-two-name")
-        .textContent = player2.value;
-
+    document.getElementById(
+        "race-number"
+    ).textContent = playerRace.value;
 
     matchTimer.textContent =
         formatTime(timeLimit);
 
     shotTimer.textContent =
-        formatTime(shotClockLimit);
+        shotClockLimit;
 
 
-    /*
-     * Show match screen.
-     */
+    document.getElementById(
+        "match-screen"
+    ).style.display = "block";
 
-    document.getElementById("match-screen")
-        .style.display = "block";
 
-    document.getElementById("match-setup")
-        .style.display = "none";
+    document.getElementById(
+        "match-setup"
+    ).style.display = "none";
 
-    document.body.classList.add("match-active");
-
-    /*
-     * Set lag button names.
-     */
 
     lagP1.textContent =
         player1.value;
@@ -309,10 +220,6 @@ matchSetupButton.addEventListener("click", function () {
         player2.value;
 
 
-    /*
-     * Disable gameplay.
-     */
-
     shotButton.disabled = true;
 
     changeTurnButton.disabled = true;
@@ -320,201 +227,311 @@ matchSetupButton.addEventListener("click", function () {
     matchStartButton.disabled = true;
 
 
-    playerOneMinus.disabled = true;
+    // Ball selection is deliberately disabled
+    // until the match starts.
 
-    playerOnePlus.disabled = true;
+    redBallButton.disabled = true;
 
-    playerTwoMinus.disabled = true;
+    yellowBallButton.disabled = true;
 
-    playerTwoPlus.disabled = true;
+
+    document.body.classList.add(
+        "match-active"
+    );
 
 });
 
 
-/* =========================================================
-   LAG PLAYER 1
-   ========================================================= */
+// ============================================================
+// PLAYER 1 WINS LAG
+// ============================================================
 
 lagP1.addEventListener("click", function () {
 
     currentPlayer =
         player1.value;
 
-    updateCurrentPlayerUI(currentPlayer);
+    updateCurrentPlayerUI(
+        currentPlayer
+    );
 
     matchStartButton.disabled = false;
 
 });
 
 
-/* =========================================================
-   LAG PLAYER 2
-   ========================================================= */
+// ============================================================
+// PLAYER 2 WINS LAG
+// ============================================================
 
 lagP2.addEventListener("click", function () {
 
     currentPlayer =
         player2.value;
 
-    updateCurrentPlayerUI(currentPlayer);
+    updateCurrentPlayerUI(
+        currentPlayer
+    );
 
     matchStartButton.disabled = false;
 
 });
 
 
-/* =========================================================
-   START MATCH
-   ========================================================= */
+// ============================================================
+// START MATCH
+// ============================================================
 
-matchStartButton.addEventListener("click", function () {
+matchStartButton.addEventListener(
+    "click",
+    function () {
 
-    matchStarted = true;
-
-
-    startMatch();
-
-    startShotClock();
-
-
-    disableLags();
+        if (currentPlayer === null) {
+            return;
+        }
 
 
-    /*
-     * Enable gameplay.
-     */
-
-    shotButton.disabled = false;
-
-    changeTurnButton.disabled = false;
+        matchStarted = true;
 
 
-    /*
-     * Enable score controls.
-     */
+        startMatch();
 
-    playerOneMinus.disabled = false;
-
-    playerOnePlus.disabled = false;
-
-    playerTwoMinus.disabled = false;
-
-    playerTwoPlus.disabled = false;
-
-    redBallButton.disabled = false;
-    yellowBallButton.disabled = false;
-});
+        startShotClock();
 
 
-/* =========================================================
-   RED BALL SELECTION
-   ========================================================= */
-
-redBallButton.addEventListener("click", function () {
-
-    assignBallSets("RED");
-
-});
+        disableLags();
 
 
-/* =========================================================
-   YELLOW BALL SELECTION
-   ========================================================= */
+        shotButton.disabled = false;
 
-yellowBallButton.addEventListener("click", function () {
-
-    assignBallSets("YELLOW");
-
-});
+        changeTurnButton.disabled = false;
 
 
-/* =========================================================
-   BALL SET ASSIGNMENT
-   ========================================================= */
+        playerOneMinus.disabled = false;
 
-function assignBallSets(ballSet) {
+        playerOnePlus.disabled = false;
 
-    /*
-     * Player 1 gets whatever
-     * the user selected.
-     */
+        playerTwoMinus.disabled = false;
 
-    playerOneBallSet =
-        ballSet;
+        playerTwoPlus.disabled = false;
 
 
-    /*
-     * Player 2 automatically gets
-     * the opposite colour.
-     */
+        // Ball buttons become available
+        // once the match has started.
 
-    if (ballSet === "RED") {
+        redBallButton.disabled = false;
 
-        playerTwoBallSet =
-            "YELLOW";
+        yellowBallButton.disabled = false;
 
-    } else {
 
-        playerTwoBallSet =
+        shotClockStatus.textContent =
+            "LIVE";
+
+    }
+);
+
+
+// ============================================================
+// SHOT TAKEN
+//
+// Important:
+// The player does NOT change.
+// The shot clock simply resets.
+// ============================================================
+
+shotButton.addEventListener(
+    "click",
+    function () {
+
+        if (!matchStarted) {
+            return;
+        }
+
+        if (currentPlayer === null) {
+            return;
+        }
+
+
+        clearInterval(scLimit);
+
+
+        shotClockLimit =
+            shotClockDuration;
+
+
+        shotTimer.textContent =
+            shotClockLimit;
+
+
+        updateShotClockProgress();
+
+
+        startShotClock();
+
+    }
+);
+
+
+// ============================================================
+// END TURN
+//
+// Player changes.
+// Shot clock resets.
+// ============================================================
+
+changeTurnButton.addEventListener(
+    "click",
+    function () {
+
+        if (!matchStarted) {
+            return;
+        }
+
+
+        if (
+            currentPlayer === player1.value
+        ) {
+
+            currentPlayer =
+                player2.value;
+
+        } else {
+
+            currentPlayer =
+                player1.value;
+
+        }
+
+
+        updateCurrentPlayerUI(
+            currentPlayer
+        );
+
+
+        clearInterval(scLimit);
+
+
+        shotClockLimit =
+            shotClockDuration;
+
+
+        shotTimer.textContent =
+            shotClockLimit;
+
+
+        updateShotClockProgress();
+
+
+        startShotClock();
+
+    }
+);
+
+
+// ============================================================
+// PLAYER ONE SCORE
+// ============================================================
+
+playerOnePlus.addEventListener(
+    "click",
+    function () {
+
+        addScore(1);
+
+    }
+);
+
+
+playerOneMinus.addEventListener(
+    "click",
+    function () {
+
+        subtractScore(1);
+
+    }
+);
+
+
+// ============================================================
+// PLAYER TWO SCORE
+// ============================================================
+
+playerTwoPlus.addEventListener(
+    "click",
+    function () {
+
+        addScore(2);
+
+    }
+);
+
+
+playerTwoMinus.addEventListener(
+    "click",
+    function () {
+
+        subtractScore(2);
+
+    }
+);
+
+
+// ============================================================
+// BALL SET SELECTION
+//
+// Player 1 selects their ball set.
+// Player 2 automatically receives the opposite set.
+// ============================================================
+
+redBallButton.addEventListener(
+    "click",
+    function () {
+
+        // Player 1 gets RED
+        playerOneBallSet.textContent =
             "RED";
 
-    }
+        playerOneBallIndicator.className =
+            "ball-indicator red-ball";
 
 
-    updateBallSetUI();
+        // Player 2 gets YELLOW
+        playerTwoBallSet.textContent =
+            "YELLOW";
 
-}
-
-
-/* =========================================================
-   UPDATE BALL SET UI
-   ========================================================= */
-
-function updateBallSetUI() {
-
-    playerOneBallSetDisplay.textContent =
-        playerOneBallSet;
-
-
-    playerTwoBallSetDisplay.textContent =
-        playerTwoBallSet;
-
-
-    playerOneBallIndicator.style.display =
-        "block";
-
-    playerTwoBallIndicator.style.display =
-        "block";
-
-
-    /*
-     * Set the actual ball colours.
-     */
-
-    if (playerOneBallSet === "RED") {
-
-        playerOneBallIndicator.style.background =
-            "#ef4444";
-
-        playerTwoBallIndicator.style.background =
-            "#facc15";
-
-    } else {
-
-        playerOneBallIndicator.style.background =
-            "#facc15";
-
-        playerTwoBallIndicator.style.background =
-            "#ef4444";
+        playerTwoBallIndicator.className =
+            "ball-indicator yellow-ball";
 
     }
+);
 
-}
+
+yellowBallButton.addEventListener(
+    "click",
+    function () {
+
+        // Player 1 gets YELLOW
+        playerOneBallSet.textContent =
+            "YELLOW";
+
+        playerOneBallIndicator.className =
+            "ball-indicator yellow-ball";
 
 
-/* =========================================================
-   CURRENT PLAYER UI
-   ========================================================= */
+        // Player 2 gets RED
+        playerTwoBallSet.textContent =
+            "RED";
+
+        playerTwoBallIndicator.className =
+            "ball-indicator red-ball";
+
+    }
+);
+
+
+// ============================================================
+// UPDATE CURRENT PLAYER UI
+// ============================================================
 
 function updateCurrentPlayerUI(player) {
 
@@ -526,7 +543,11 @@ function updateCurrentPlayerUI(player) {
         p2Indicator.style.display =
             "none";
 
-    } else if (player === player2.value) {
+    }
+
+    else if (
+        player === player2.value
+    ) {
 
         p2Indicator.style.display =
             "block";
@@ -534,7 +555,9 @@ function updateCurrentPlayerUI(player) {
         p1Indicator.style.display =
             "none";
 
-    } else {
+    }
+
+    else {
 
         p1Indicator.style.display =
             "none";
@@ -547,79 +570,147 @@ function updateCurrentPlayerUI(player) {
 }
 
 
-/* =========================================================
-   MATCH TIMER
-   ========================================================= */
+// ============================================================
+// START MATCH TIMER
+// ============================================================
 
 function startMatch() {
 
-    clearInterval(matchTimerInterval);
+    clearInterval(
+        matchTimerInterval
+    );
 
 
     matchTimerInterval =
-        setInterval(function () {
+        setInterval(
+            function () {
 
-            timeLimit--;
+                if (timeLimit <= 0) {
+
+                    timeLimit = 0;
+
+                    clearInterval(
+                        matchTimerInterval
+                    );
+
+                    matchTimer.textContent =
+                        formatTime(timeLimit);
+
+                    return;
+                }
 
 
-            matchTimer.textContent =
-                formatTime(timeLimit);
+                timeLimit--;
 
-
-            if (timeLimit <= 0) {
-
-                timeLimit = 0;
 
                 matchTimer.textContent =
                     formatTime(timeLimit);
 
-                clearInterval(matchTimerInterval);
-
-            }
-
-        }, 1000);
+            },
+            1000
+        );
 
 }
 
 
-/* =========================================================
-   SHOT CLOCK
-   ========================================================= */
+// ============================================================
+// START SHOT CLOCK
+// ============================================================
 
 function startShotClock() {
 
     clearInterval(scLimit);
 
 
+    updateShotClockProgress();
+
+
     scLimit =
-        setInterval(function () {
+        setInterval(
+            function () {
 
-            shotClockLimit--;
+                if (
+                    shotClockLimit <= 0
+                ) {
+
+                    shotClockLimit = 0;
+
+                    shotTimer.textContent =
+                        0;
+
+                    updateShotClockProgress();
+
+                    shotClockStatus.textContent =
+                        "TIME";
+
+                    clearInterval(scLimit);
+
+                    return;
+                }
 
 
-            shotTimer.textContent =
-                formatTime(shotClockLimit);
+                shotClockLimit--;
 
-
-            if (shotClockLimit <= 0) {
-
-                shotClockLimit = 0;
 
                 shotTimer.textContent =
-                    formatTime(shotClockLimit);
+                    shotClockLimit;
 
-                clearInterval(scLimit);
 
-            }
+                updateShotClockProgress();
 
-        }, 1000);
+
+                if (
+                    shotClockLimit <= 5
+                ) {
+
+                    shotClockStatus.textContent =
+                        "HURRY";
+
+                }
+
+                else {
+
+                    shotClockStatus.textContent =
+                        "LIVE";
+
+                }
+
+            },
+            1000
+        );
 
 }
 
 
-/* =========================================================
-   DISABLE LAGS
-   ========================================================= */
+// ============================================================
+// SHOT CLOCK PROGRESS
+// ============================================================
+
+function updateShotClockProgress() {
+
+    if (
+        shotClockDuration <= 0
+    ) {
+        return;
+    }
+
+
+    const percentage =
+        (
+            shotClockLimit /
+            shotClockDuration
+        ) * 100;
+
+
+    shotClockProgress.style.width =
+        `${percentage}%`;
+
+}
+
+
+// ============================================================
+// DISABLE LAGS
+// ============================================================
 
 function disableLags() {
 
@@ -630,9 +721,32 @@ function disableLags() {
 }
 
 
-/* =========================================================
-   SCORE - ADD
-   ========================================================= */
+// ============================================================
+// FORMAT TIME
+// ============================================================
+
+function formatTime(totalSeconds) {
+
+    const minutes =
+        Math.floor(
+            totalSeconds / 60
+        );
+
+
+    const seconds =
+        totalSeconds % 60;
+
+
+    return `${minutes}:${seconds
+        .toString()
+        .padStart(2, "0")}`;
+
+}
+
+
+// ============================================================
+// ADD SCORE
+// ============================================================
 
 function addScore(player) {
 
@@ -641,6 +755,9 @@ function addScore(player) {
         playerOneScore++;
 
         playerOneScoreDisplay.textContent =
+            playerOneScore;
+
+        centerScoreOne.textContent =
             playerOneScore;
 
     }
@@ -653,32 +770,7 @@ function addScore(player) {
         playerTwoScoreDisplay.textContent =
             playerTwoScore;
 
-    }
-
-}
-
-
-/* =========================================================
-   SCORE - SUBTRACT
-   ========================================================= */
-
-function subtractScore(player) {
-
-    if (player === 1 && playerOneScore > 0) {
-
-        playerOneScore--;
-
-        playerOneScoreDisplay.textContent =
-            playerOneScore;
-
-    }
-
-
-    if (player === 2 && playerTwoScore > 0) {
-
-        playerTwoScore--;
-
-        playerTwoScoreDisplay.textContent =
+        centerScoreTwo.textContent =
             playerTwoScore;
 
     }
@@ -686,53 +778,41 @@ function subtractScore(player) {
 }
 
 
-/* =========================================================
-   SCORE BUTTON EVENTS
-   ========================================================= */
+// ============================================================
+// SUBTRACT SCORE
+// ============================================================
 
-playerOnePlus.addEventListener("click", function () {
+function subtractScore(player) {
 
-    addScore(1);
+    if (
+        player === 1 &&
+        playerOneScore > 0
+    ) {
 
-});
+        playerOneScore--;
 
+        playerOneScoreDisplay.textContent =
+            playerOneScore;
 
-playerOneMinus.addEventListener("click", function () {
+        centerScoreOne.textContent =
+            playerOneScore;
 
-    subtractScore(1);
-
-});
-
-
-playerTwoPlus.addEventListener("click", function () {
-
-    addScore(2);
-
-});
+    }
 
 
-playerTwoMinus.addEventListener("click", function () {
+    if (
+        player === 2 &&
+        playerTwoScore > 0
+    ) {
 
-    subtractScore(2);
+        playerTwoScore--;
 
-});
+        playerTwoScoreDisplay.textContent =
+            playerTwoScore;
 
+        centerScoreTwo.textContent =
+            playerTwoScore;
 
-/* =========================================================
-   FORMAT TIME
-   ========================================================= */
-
-function formatTime(totalSeconds) {
-
-    const minutes =
-        Math.floor(totalSeconds / 60);
-
-    const seconds =
-        totalSeconds % 60;
-
-
-    return `${minutes}:${seconds
-        .toString()
-        .padStart(2, "0")}`;
+    }
 
 }
